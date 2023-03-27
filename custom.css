@@ -1,0 +1,9 @@
+.column2 {
+  width: 50%;
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.tiny .remark-code { /*Change made here*/
+  font-size: 65% !important;
+}

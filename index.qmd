@@ -1,0 +1,95 @@
+---
+title: "Shiny Apps with R <br/><br/><br/><br/><br/>"
+title-slide-attributes:
+    data-background-image: images/lts_logo.jpg
+    data-background-size: "30%"
+    data-background-opacity: "0.90"
+    data-background-position: "50% 45%"
+format:
+   revealjs:
+     theme: [dark, custom.scss]
+     code-fold: false
+     slide-number: c
+     controls: true
+     css: custom.css
+     menu: {
+      side: 'left',
+      numbers: true,
+      markers: true,
+      width: 'normal',
+      hideMissingTitles: true,
+      titleSelector: ''}
+preview-links: auto
+---
+
+## Structure of the presentation {data-menu-title="Presentation outline"}
+
+The presentation is split into seven topics:
+
+::: fragment
+-   Topic 1:    Shiny Apps - an overview
+:::
+
+::: fragment
+-   Topic 2:    User Interface (ui)
+
+-   Topic 3:    Reactive Programming (server)
+
+-   Topic 4:    Layouts and Themes
+:::
+
+::: fragment
+-   Topic 5:    Example - Lehigh Valley Temperature
+
+-   Topic 6:    Deploying Shiny Apps
+:::
+
+::: fragment
+-   Topic 7:    Additional resources
+:::
+
+::: fragment
+-   Raw code available on [Github](https://github.com/jeremymack-LU/rshiny/blob/main/index.qmd)
+:::
+
+![](images/r_learners.png){.absolute bottom="0" right="0" width="50%" height="50%"}
+
+# Topic 1 {data-menu-title="Topic 1"}
+
+[Shiny Apps - an overview]{style="font-size: 1.5em; text-align: center"}
+
+## Topic 1: Shiny Apps - an overview {data-menu-title="Shiny overview"}
+
+-   Posit product - `shiny`
+
+-   Build interactive web applications, reports,and</br>dashboards with R
+
+-   [**Reactive Programming**]{style="color:#edea2b"}
+
+![](images/shiny_hex.png){.absolute top="52" right="0" width="30%"}
+
+## Topic 1: Shiny Apps - an overview {data-menu-title="Shiny example"}
+
+<p>
+
+<a href="https://jeremymack.shinyapps.io/purpleair/"> <img src="./images/shinyapp.png" alt="Picture of learning R graph" height="100%" width="100%"/> </a>
+
+</p>
+
+## Topic 1: Shiny Apps - an overview {data-menu-title="Shiny components"}
+
+-   Posit product - `shiny`
+
+-   Build interactive web applications, reports,and</br>dashboards with R
+
+-   [**Reactive Programming**]{style="color:#edea2b"}
+
+-   Three basic components:
+
+    ::: fragment
+    1. user interface object (ui)
+    2. server function (server)
+    3. a call to the shinyApp function
+    :::
+
+![](images/shiny_hex.png){.absolute top="52" right="0" width="30%"}
