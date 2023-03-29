@@ -27,6 +27,70 @@
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #f8f8f2;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #f8f8f2; } /* Normal */
+    code span.al { color: #f07178; background-color: #2a0f15; font-weight: bold; } /* Alert */
+    code span.an { color: #d4d0ab; } /* Annotation */
+    code span.at { color: #00e0e0; } /* Attribute */
+    code span.bn { color: #d4d0ab; } /* BaseN */
+    code span.bu { color: #abe338; } /* BuiltIn */
+    code span.cf { color: #ffa07a; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #abe338; } /* Char */
+    code span.cn { color: #ffd700; } /* Constant */
+    code span.co { color: #f8f8f2; font-style: italic; } /* Comment */
+    code span.cv { color: #ffd700; } /* CommentVar */
+    code span.do { color: #f8f8f2; } /* Documentation */
+    code span.dt { color: #ffa07a; } /* DataType */
+    code span.dv { color: #d4d0ab; } /* DecVal */
+    code span.er { color: #f07178; text-decoration: underline; } /* Error */
+    code span.ex { color: #00e0e0; font-weight: bold; } /* Extension */
+    code span.fl { color: #d4d0ab; } /* Float */
+    code span.fu { color: #ffa07a; } /* Function */
+    code span.im { color: #abe338; } /* Import */
+    code span.in { color: #d4d0ab; } /* Information */
+    code span.kw { color: #ffa07a; font-weight: bold; } /* Keyword */
+    code span.op { color: #ffa07a; } /* Operator */
+    code span.ot { color: #00e0e0; } /* Other */
+    code span.pp { color: #dcc6e0; } /* Preprocessor */
+    code span.re { color: #00e0e0; background-color: #f8f8f2; } /* RegionMarker */
+    code span.sc { color: #abe338; } /* SpecialChar */
+    code span.ss { color: #abe338; } /* SpecialString */
+    code span.st { color: #abe338; } /* String */
+    code span.va { color: #00e0e0; } /* Variable */
+    code span.vs { color: #abe338; } /* VerbatimString */
+    code span.wa { color: #dcc6e0; } /* Warning */
   </style>
   <link rel="stylesheet" href="index_files/libs/revealjs/dist/theme/quarto.css" id="theme">
   <link rel="stylesheet" href="custom.css">
@@ -368,11 +432,17 @@
 <section id="topic-1-shiny-apps---an-overview" class="slide level2" data-menu-title="Shiny overview">
 <h2>Topic 1: Shiny Apps - an overview</h2>
 <ul>
-<li><p>Posit product - <code>shiny</code></p></li>
-<li><p>Build interactive web applications, reports,and<br>dashboards with R</p></li>
-<li><p><span style="color:#edea2b"><strong>Reactive Programming</strong></span></p></li>
+<li><p>Posit product - <code>shiny</code></p>
+<div class="cell" style="font-size: 0.85em">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">install.packages</span>(<span class="st">'shiny'</span>); <span class="fu">library</span>(shiny)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div></li>
+<li><p>Web application framework for R</p></li>
+<li><p>Build interactive web applications, reports, and dashboards</p>
+<ul>
+<li><span style="color:#edea2b"><strong>Reactive Programming</strong></span></li>
+</ul></li>
 </ul>
-<p><img data-src="images/shiny_hex.png" class="absolute" style="top: 52px; right: 0px; width: 30%; "></p>
+<p><img data-src="images/shiny_hex.png" class="absolute" style="top: 15px; right: 50px; height: 250px; "></p>
 </section>
 <section id="topic-1-shiny-apps---an-overview-1" class="slide level2" data-menu-title="Shiny example">
 <h2>Topic 1: Shiny Apps - an overview</h2>
@@ -380,22 +450,736 @@
 </p><p><a href="https://jeremymack.shinyapps.io/purpleair/"> <img src="./images/shinyapp.png" alt="Picture of learning R graph" height="100%" width="100%"> </a></p>
 <p></p>
 </section>
-<section id="topic-1-shiny-apps---an-overview-2" class="slide level2" data-menu-title="Shiny components">
+<section id="topic-1-shiny-apps---an-overview-2" class="slide level2" data-menu-title="Shiny start">
 <h2>Topic 1: Shiny Apps - an overview</h2>
 <ul>
 <li><p>Posit product - <code>shiny</code></p></li>
-<li><p>Build interactive web applications, reports,and<br>dashboards with R</p></li>
-<li><p><span style="color:#edea2b"><strong>Reactive Programming</strong></span></p></li>
-<li><p>Three basic components:</p>
+<li><p>Web application framework for R</p></li>
+<li><p>Three ways to start creating a Shiny App:</p></li>
+</ul>
 <div class="fragment">
+<div class="panel-tabset">
+<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">1</a></li><li><a href="#tabset-1-2">2</a></li><li><a href="#tabset-1-3">3</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1">
 <ol type="1">
-<li>user interface object (ui)</li>
-<li>server function (server)</li>
-<li>a call to the shinyApp function</li>
+<li>In RStudio, click the new file button and select <code>Shiny Web App...</code></li>
+</ol>
+<center>
+<p><img src="./images/shiny_start.png" alt="screenshot" height="280"></p>
+</center>
+</div>
+<div id="tabset-1-2">
+<ol start="2" type="1">
+<li>In RStudio, click <code>File</code> | <code>New Project</code>, select <code>New Directory</code>, and then click <code>Shiny Web Application</code></li>
+</ol>
+<center>
+<p><img src="./images/shiny_start4a.png" alt="screenshot" height="280"> &nbsp; <img src="./images/shiny_start4b.png" alt="screenshot" height="280"></p>
+</center>
+</div>
+<div id="tabset-1-3">
+<ol start="3" type="1">
+<li>Create a new directory and put a single file called <code>app.R</code> in it<br> (*Shortcut - add the app boilerplate by typing <code>shinyapp</code> and pressing Shift+Tab)</li>
+</ol>
+<center>
+<p><img src="./images/shiny_start5.png" alt="screenshot" height="280"> &nbsp; <img src="./images/shiny_start2.png" alt="screenshot" height="280"> &nbsp; <img src="./images/shiny_start3.png" alt="screenshot" height="280"></p>
+</center>
+</div>
+</div>
+</div>
+</div>
+<p><img data-src="images/shiny_hex.png" class="absolute" style="top: 15px; right: 50px; height: 250px; "></p>
+</section>
+<section id="topic-1-shiny-apps---an-overview-3" class="slide level2" data-menu-title="Shiny components">
+<h2>Topic 1: Shiny Apps - an overview</h2>
+<ul>
+<li><p>Posit product - <code>shiny</code></p></li>
+<li><p>Web application framework for R</p></li>
+<li><p>Three basic components:</p>
+<div>
+<ol type="1">
+<li class="fragment">User interface (ui) object</li>
+<li class="fragment">Server function (server)</li>
+<li class="fragment">Call to the shinyApp function</li>
 </ol>
 </div></li>
 </ul>
-<p><img data-src="images/shiny_hex.png" class="absolute" style="top: 52px; right: 0px; width: 30%; "></p>
+<p><img data-src="images/shiny_hex.png" class="absolute" style="top: 15px; right: 50px; height: 250px; "></p>
+</section></section>
+<section>
+<section id="topic-2" class="title-slide slide level1 center" data-menu-title="Topic 2">
+<h1>Topic 2</h1>
+<p><span style="font-size: 1.5em; text-align: center">User Interface (ui)</span></p>
+</section>
+<section id="topic-2-user-interface-ui" class="slide level2" data-menu-title="ui inputs">
+<h2>Topic 2: User Interface (ui)</h2>
+<p><img data-src="images/shiny_hex.png" class="absolute" style="top: 15px; right: 50px; height: 250px; "></p>
+<ul>
+<li><p>Application’s front end appearance</p></li>
+<li><p>Collection of <code>input</code> and <code>output</code> functions</p></li>
+</ul>
+<div class="fragment" data-fragment-index="1">
+<ul>
+<li><p>Input functions</p>
+<ul>
+<li><p>Adds input controls to the ui</p></li>
+<li><p>First argument: <code>inputId</code></p></li>
+<li><p>Basic types:</p>
+<ol type="1">
+<li>Text</li>
+<li>Numeric</li>
+<li>Dates</li>
+<li>Choices (drop downs, radio buttons, checkboxes)</li>
+<li>Uploads</li>
+<li>Action buttons</li>
+</ol></li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="topic-2-user-interface-ui-1" class="slide level2" data-menu-title="ui inputs">
+<h2>Topic 2: User Interface (ui)</h2>
+<div class="panel-tabset">
+<ul id="tabset-3" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-3-1">Text</a></li><li><a href="#tabset-3-2">Numeric</a></li><li><a href="#tabset-3-3">Dates</a></li><li><a href="#tabset-3-4">Choices</a></li><li><a href="#tabset-3-5">Uploads</a></li><li><a href="#tabset-3-6">Action buttons</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1">
+<div class="cell" style="font-size: 0.85em">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb2-2"><a href="#cb2-2"></a>  <span class="fu">textInput</span>(<span class="st">"name"</span>, <span class="st">"What's your name?"</span>),</span>
+<span id="cb2-3"><a href="#cb2-3"></a>  <span class="fu">passwordInput</span>(<span class="st">"password"</span>, <span class="st">"What's your password?"</span>),</span>
+<span id="cb2-4"><a href="#cb2-4"></a>  <span class="fu">textAreaInput</span>(<span class="st">"story"</span>, <span class="st">"Tell me about yourself"</span>, <span class="at">rows =</span> <span class="dv">3</span>)</span>
+<span id="cb2-5"><a href="#cb2-5"></a>  )</span>
+<span id="cb2-6"><a href="#cb2-6"></a></span>
+<span id="cb2-7"><a href="#cb2-7"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {}</span>
+<span id="cb2-8"><a href="#cb2-8"></a></span>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="fu">shinyApp</span>(ui, server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-3-2">
+<div class="cell" style="font-size: 0.85em">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb3-2"><a href="#cb3-2"></a>  <span class="fu">numericInput</span>(<span class="st">"num"</span>, <span class="st">"Number one"</span>, <span class="at">value =</span> <span class="dv">0</span>, <span class="at">min =</span> <span class="dv">0</span>, <span class="at">max =</span> <span class="dv">100</span>),</span>
+<span id="cb3-3"><a href="#cb3-3"></a>  <span class="fu">sliderInput</span>(<span class="st">"num2"</span>, <span class="st">"Number two"</span>, <span class="at">value =</span> <span class="dv">50</span>, <span class="at">min =</span> <span class="dv">0</span>, <span class="at">max =</span> <span class="dv">100</span>),</span>
+<span id="cb3-4"><a href="#cb3-4"></a>  <span class="fu">sliderInput</span>(<span class="st">"rng"</span>, <span class="st">"Range"</span>, <span class="at">value =</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">20</span>), <span class="at">min =</span> <span class="dv">0</span>, <span class="at">max =</span> <span class="dv">100</span>)</span>
+<span id="cb3-5"><a href="#cb3-5"></a>  )</span>
+<span id="cb3-6"><a href="#cb3-6"></a></span>
+<span id="cb3-7"><a href="#cb3-7"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {}</span>
+<span id="cb3-8"><a href="#cb3-8"></a></span>
+<span id="cb3-9"><a href="#cb3-9"></a><span class="fu">shinyApp</span>(ui, server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-3-3">
+<div class="cell" style="font-size: 0.85em">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb4-2"><a href="#cb4-2"></a>    <span class="fu">dateInput</span>(<span class="st">"dob"</span>, <span class="st">"When were you born?"</span>),</span>
+<span id="cb4-3"><a href="#cb4-3"></a>    <span class="fu">dateRangeInput</span>(<span class="st">"range"</span>, <span class="st">"What is the date range of your data?"</span>)</span>
+<span id="cb4-4"><a href="#cb4-4"></a>    )</span>
+<span id="cb4-5"><a href="#cb4-5"></a></span>
+<span id="cb4-6"><a href="#cb4-6"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {}</span>
+<span id="cb4-7"><a href="#cb4-7"></a></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="fu">shinyApp</span>(ui, server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-3-4">
+<div class="panel-tabset">
+<ul id="tabset-2" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-2-1">Drop downs</a></li><li><a href="#tabset-2-2">Radio buttons</a></li><li><a href="#tabset-2-3">Checkboxes</a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1">
+<div class="cell" style="font-size: 0.85em">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb5-2"><a href="#cb5-2"></a>    <span class="fu">selectInput</span>(<span class="st">"state"</span>, <span class="st">"What's your favorite state?"</span>, state.name),</span>
+<span id="cb5-3"><a href="#cb5-3"></a>    <span class="fu">selectInput</span>(<span class="st">"state2"</span>, <span class="st">"What's your favourite state(s)?"</span>, state.name, <span class="at">multiple =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb5-4"><a href="#cb5-4"></a>    )</span>
+<span id="cb5-5"><a href="#cb5-5"></a></span>
+<span id="cb5-6"><a href="#cb5-6"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {}</span>
+<span id="cb5-7"><a href="#cb5-7"></a></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="fu">shinyApp</span>(ui, server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-2-2">
+<div class="cell" style="font-size: 0.85em">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>animals <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"dog"</span>, <span class="st">"cat"</span>, <span class="st">"mouse"</span>, <span class="st">"bird"</span>, <span class="st">"other"</span>, <span class="st">"I don't like animals"</span>)</span>
+<span id="cb6-2"><a href="#cb6-2"></a></span>
+<span id="cb6-3"><a href="#cb6-3"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb6-4"><a href="#cb6-4"></a>    <span class="fu">radioButtons</span>(<span class="st">"animal"</span>, <span class="st">"What's your favorite animal?"</span>, animals)</span>
+<span id="cb6-5"><a href="#cb6-5"></a>    )</span>
+<span id="cb6-6"><a href="#cb6-6"></a></span>
+<span id="cb6-7"><a href="#cb6-7"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {}</span>
+<span id="cb6-8"><a href="#cb6-8"></a></span>
+<span id="cb6-9"><a href="#cb6-9"></a><span class="fu">shinyApp</span>(ui, server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-2-3">
+<div class="cell" style="font-size: 0.85em">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb7-2"><a href="#cb7-2"></a>    <span class="fu">radioButtons</span>(<span class="st">"animal"</span>, <span class="st">"What's your favorite animal?"</span>, animals),</span>
+<span id="cb7-3"><a href="#cb7-3"></a>    <span class="fu">checkboxGroupInput</span>(<span class="st">"animal"</span>, <span class="st">"What animals do you like?"</span>, animals)</span>
+<span id="cb7-4"><a href="#cb7-4"></a>    )</span>
+<span id="cb7-5"><a href="#cb7-5"></a></span>
+<span id="cb7-6"><a href="#cb7-6"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {}</span>
+<span id="cb7-7"><a href="#cb7-7"></a></span>
+<span id="cb7-8"><a href="#cb7-8"></a><span class="fu">shinyApp</span>(ui, server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="tabset-3-5">
+<div class="cell" style="font-size: 0.85em">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb8-2"><a href="#cb8-2"></a>    <span class="fu">fileInput</span>(<span class="st">"upload"</span>, <span class="cn">NULL</span>)</span>
+<span id="cb8-3"><a href="#cb8-3"></a>    )</span>
+<span id="cb8-4"><a href="#cb8-4"></a></span>
+<span id="cb8-5"><a href="#cb8-5"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {}</span>
+<span id="cb8-6"><a href="#cb8-6"></a></span>
+<span id="cb8-7"><a href="#cb8-7"></a><span class="fu">shinyApp</span>(ui, server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-3-6">
+<div class="cell" style="font-size: 0.85em">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb9-2"><a href="#cb9-2"></a>  <span class="fu">actionButton</span>(<span class="st">"click"</span>, <span class="st">"Click me!"</span>),</span>
+<span id="cb9-3"><a href="#cb9-3"></a>  <span class="fu">actionButton</span>(<span class="st">"download"</span>, <span class="st">"Download"</span>)</span>
+<span id="cb9-4"><a href="#cb9-4"></a>  )</span>
+<span id="cb9-5"><a href="#cb9-5"></a></span>
+<span id="cb9-6"><a href="#cb9-6"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {}</span>
+<span id="cb9-7"><a href="#cb9-7"></a></span>
+<span id="cb9-8"><a href="#cb9-8"></a><span class="fu">shinyApp</span>(ui, server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="topic-2-user-interface-ui-2" class="slide level2" data-menu-title="ui outputs">
+<h2>Topic 2: User Interface (ui)</h2>
+<p><img data-src="images/shiny_hex.png" class="absolute" style="top: 15px; right: 50px; height: 250px; "></p>
+<ul>
+<li><p>Application’s front end appearance</p></li>
+<li><p>Collection of <code>input</code> and <code>output</code> functions</p></li>
+</ul>
+<div class="fragment" data-fragment-index="1">
+<ul>
+<li><p>Output functions</p>
+<ul>
+<li><p>Creates placeholders later filled by the server function (render)</p></li>
+<li><p>First argument: <code>outputId</code></p></li>
+<li><p>Basic types:</p>
+<ol type="1">
+<li>Text</li>
+<li>Tables</li>
+<li>Plots</li>
+</ol></li>
+</ul></li>
+</ul>
+</div>
+</section>
+<section id="topic-2-user-interface-ui-3" class="slide level2" data-menu-title="ui outputs">
+<h2>Topic 2: User Interface (ui)</h2>
+<div class="panel-tabset">
+<ul id="tabset-4" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-4-1">Text</a></li><li><a href="#tabset-4-2">Tables</a></li><li><a href="#tabset-4-3">Plots</a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb10-2"><a href="#cb10-2"></a>    <span class="fu">textInput</span>(<span class="st">"name"</span>, <span class="st">"What's your name?"</span>),</span>
+<span id="cb10-3"><a href="#cb10-3"></a>    <span class="fu">textOutput</span>(<span class="st">"text"</span>)</span>
+<span id="cb10-4"><a href="#cb10-4"></a>    )</span>
+<span id="cb10-5"><a href="#cb10-5"></a></span>
+<span id="cb10-6"><a href="#cb10-6"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb10-7"><a href="#cb10-7"></a>    output<span class="sc">$</span>text <span class="ot">&lt;-</span> <span class="fu">renderText</span>({ </span>
+<span id="cb10-8"><a href="#cb10-8"></a>        input<span class="sc">$</span>name</span>
+<span id="cb10-9"><a href="#cb10-9"></a>      })</span>
+<span id="cb10-10"><a href="#cb10-10"></a>    }</span>
+<span id="cb10-11"><a href="#cb10-11"></a></span>
+<span id="cb10-12"><a href="#cb10-12"></a><span class="fu">shinyApp</span>(ui, server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-4-2">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb11-2"><a href="#cb11-2"></a>    <span class="fu">tableOutput</span>(<span class="st">"static"</span>),</span>
+<span id="cb11-3"><a href="#cb11-3"></a>    <span class="fu">dataTableOutput</span>(<span class="st">"dynamic"</span>)</span>
+<span id="cb11-4"><a href="#cb11-4"></a>    )</span>
+<span id="cb11-5"><a href="#cb11-5"></a></span>
+<span id="cb11-6"><a href="#cb11-6"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb11-7"><a href="#cb11-7"></a>    output<span class="sc">$</span>static <span class="ot">&lt;-</span> <span class="fu">renderTable</span>(<span class="fu">head</span>(mtcars))</span>
+<span id="cb11-8"><a href="#cb11-8"></a>    output<span class="sc">$</span>dynamic <span class="ot">&lt;-</span> <span class="fu">renderDataTable</span>(mtcars, <span class="at">options =</span> <span class="fu">list</span>(<span class="at">pageLength =</span> <span class="dv">5</span>))</span>
+<span id="cb11-9"><a href="#cb11-9"></a>    }</span>
+<span id="cb11-10"><a href="#cb11-10"></a></span>
+<span id="cb11-11"><a href="#cb11-11"></a><span class="fu">shinyApp</span>(ui, server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-4-3">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb12-2"><a href="#cb12-2"></a></span>
+<span id="cb12-3"><a href="#cb12-3"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb12-4"><a href="#cb12-4"></a>    <span class="fu">plotOutput</span>(<span class="st">"plot"</span>, <span class="at">width =</span> <span class="st">"800px"</span>)</span>
+<span id="cb12-5"><a href="#cb12-5"></a>    )</span>
+<span id="cb12-6"><a href="#cb12-6"></a></span>
+<span id="cb12-7"><a href="#cb12-7"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb12-8"><a href="#cb12-8"></a>    output<span class="sc">$</span>plot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>(</span>
+<span id="cb12-9"><a href="#cb12-9"></a>        <span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="fu">aes</span>(mpg,hp))</span>
+<span id="cb12-10"><a href="#cb12-10"></a>        )</span>
+<span id="cb12-11"><a href="#cb12-11"></a>    }</span>
+<span id="cb12-12"><a href="#cb12-12"></a></span>
+<span id="cb12-13"><a href="#cb12-13"></a><span class="fu">shinyApp</span>(ui, server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="review---user-interface-ui" class="slide level2" data-background="#000000" data-menu-title="Review 1 - ui">
+<h2>Review - User Interface (ui):</h2>
+<p><img data-src="images/shiny_hex.png" class="absolute" style="bottom: 0px; right: 0px; height: 40%; "></p>
+<ul>
+<li><p><code>shiny</code> package - web application framework for R</p></li>
+<li><p>Three basic components:</p>
+<ol type="1">
+<li>User interface (ui) object</li>
+<li>Server function (server)</li>
+<li>Call to the <code>shinyApp</code> function</li>
+</ol></li>
+</ul>
+<div class="fragment">
+<ul>
+<li><p>User interface (ui) object:</p>
+<ul>
+<li>Front end appearance</li>
+<li>Collection of <code>input</code> and <code>output</code> functions</li>
+<li>Id arguments used for reference within the <code>server</code> function</li>
+</ul></li>
+</ul>
+</div>
+</section></section>
+<section>
+<section id="topic-3" class="title-slide slide level1 center" data-menu-title="Topic 3">
+<h1>Topic 3</h1>
+<p><span style="font-size: 1.5em; text-align: center">Reactive Programming (server)</span></p>
+</section>
+<section id="topic-3-reactive-programming-server" class="slide level2" data-menu-title="Reactive Programming">
+<h2>Topic 3: Reactive Programming (server)</h2>
+<div class="fragment fade-out" data-fragment-index="1">
+<p><img data-src="images/shiny_hex.png" class="absolute" style="top: 15px; right: 50px; height: 250px; "></p>
+</div>
+<ul>
+<li><p>Application’s back end logic</p></li>
+<li><p>Built within a <code>server</code> function</p></li>
+<li><p>Renders outputs based on inputs</p></li>
+</ul>
+<div class="fragment" data-fragment-index="1">
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" style="font-size: 0.85em">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb13-2"><a href="#cb13-2"></a>  <span class="fu">textInput</span>(<span class="st">"name"</span>, <span class="st">"What's your name?"</span>),</span>
+<span id="cb13-3"><a href="#cb13-3"></a>  <span class="fu">textOutput</span>(<span class="st">"text"</span>)</span>
+<span id="cb13-4"><a href="#cb13-4"></a>  )</span>
+<span id="cb13-5"><a href="#cb13-5"></a></span>
+<span id="cb13-6"><a href="#cb13-6"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb13-7"><a href="#cb13-7"></a>  output<span class="sc">$</span>text <span class="ot">&lt;-</span> <span class="fu">renderText</span>(</span>
+<span id="cb13-8"><a href="#cb13-8"></a>    <span class="fu">paste</span>(<span class="st">"Hello, my name is "</span>, input<span class="sc">$</span>name))</span>
+<span id="cb13-9"><a href="#cb13-9"></a>  }</span>
+<span id="cb13-10"><a href="#cb13-10"></a></span>
+<span id="cb13-11"><a href="#cb13-11"></a><span class="fu">shinyApp</span>(ui, server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+<p><img data-src="images/reactive0.png" class="absolute" style="top: 55px; right: 14px; width: 450px; "> <img data-src="images/reactive1.png" class="absolute" style="top: 240px; right: 14px; width: 450px; "> <img data-src="images/reactive2.png" class="absolute" style="top: 428px; right: 14px; width: 450px; "></p>
+</div>
+</section>
+<section id="topic-3-reactive-programming-server-1" class="slide level2" data-menu-title="Reactive Programming" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Topic 3: Reactive Programming (server)</h2>
+<ul>
+<li><p>Application’s back end logic</p></li>
+<li><p>Built within a <code>server</code> function</p></li>
+<li><p>Renders outputs based on inputs</p></li>
+<li><p>Some things to remember:</p>
+<ul>
+<li>Input objects are read only</li>
+</ul></li>
+</ul>
+<div class="absolute" style="top: 55px; right: 0px; width: 500px; ">
+<div class="cell" style="font-size: 0.85em">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb14-1" class="hljs-ln-code"><a href="#cb14-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb14-2" class="hljs-ln-code"><a href="#cb14-2"></a>  <span class="fu">textInput</span>(<span class="st">"name"</span>, <span class="st">"What's your name?"</span>),</span>
+<span id="cb14-3" class="hljs-ln-code"><a href="#cb14-3"></a>  <span class="fu">textOutput</span>(<span class="st">"text"</span>)</span>
+<span id="cb14-4" class="hljs-ln-code"><a href="#cb14-4"></a>  )</span>
+<span id="cb14-5" class="hljs-ln-code"><a href="#cb14-5"></a></span>
+<span id="cb14-6" class="hljs-ln-code"><a href="#cb14-6"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb14-7" class="hljs-ln-code"><a href="#cb14-7"></a>  input<span class="sc">$</span>name <span class="ot">&lt;-</span> <span class="st">"Jeremy Mack"</span></span>
+<span id="cb14-8" class="hljs-ln-code"><a href="#cb14-8"></a>  }</span>
+<span id="cb14-9" class="hljs-ln-code"><a href="#cb14-9"></a></span>
+<span id="cb14-10" class="hljs-ln-code"><a href="#cb14-10"></a><span class="fu">shinyApp</span>(ui, server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="fragment" data-fragment-index="1">
+<p><img data-src="images/error2.png" class="absolute" style="top: 250px; right: 0px; width: 500px; "></p>
+</div>
+</section>
+<section id="topic-3-reactive-programming-server-2" class="slide level2" data-menu-title="Reactive Programming">
+<h2>Topic 3: Reactive Programming (server)</h2>
+<ul>
+<li><p>Application’s back end logic</p></li>
+<li><p>Built within a <code>server</code> function</p></li>
+<li><p>Renders outputs based on inputs</p></li>
+<li><p>Some things to remember:</p>
+<ul>
+<li>Input objects are read only</li>
+<li>Input and output objects are read in<br>reactive context created by functions like<br><code>renderText</code> or <code>reactive</code></li>
+</ul></li>
+</ul>
+<div class="absolute" style="top: 55px; right: 0px; width: 500px; ">
+<div class="cell" style="font-size: 0.85em">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb15-2"><a href="#cb15-2"></a>  <span class="fu">textInput</span>(<span class="st">"name"</span>, <span class="st">"What's your name?"</span>),</span>
+<span id="cb15-3"><a href="#cb15-3"></a>  <span class="fu">textOutput</span>(<span class="st">"text"</span>)</span>
+<span id="cb15-4"><a href="#cb15-4"></a>  )</span>
+<span id="cb15-5"><a href="#cb15-5"></a></span>
+<span id="cb15-6"><a href="#cb15-6"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb15-7"><a href="#cb15-7"></a>  <span class="co">#input$name &lt;- "Jeremy Mack"</span></span>
+<span id="cb15-8"><a href="#cb15-8"></a>  <span class="fu">paste</span>(<span class="st">"Hello, my name is "</span>, input<span class="sc">$</span>name)</span>
+<span id="cb15-9"><a href="#cb15-9"></a>  }</span>
+<span id="cb15-10"><a href="#cb15-10"></a></span>
+<span id="cb15-11"><a href="#cb15-11"></a><span class="fu">shinyApp</span>(ui, server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="fragment" data-fragment-index="1">
+<p><img data-src="images/error4.png" class="absolute" style="top: 270px; right: 0px; width: 500px; "></p>
+</div>
+</section>
+<section id="topic-3-reactive-programming-server-3" class="slide level2" data-menu-title="Reactive Programming">
+<h2>Topic 3: Reactive Programming (server)</h2>
+<ul>
+<li><p>Application’s back end logic</p></li>
+<li><p>Built within a <code>server</code> function</p></li>
+<li><p>Renders outputs based on inputs</p></li>
+<li><p>Some things to remember:</p>
+<ul>
+<li>Input objects are read only</li>
+<li>Input and output objects are read in<br>reactive context created by functions like<br><code>renderText</code> or <code>reactive</code></li>
+<li>Check your spelling!</li>
+</ul></li>
+</ul>
+<div class="absolute" style="top: 55px; right: 0px; width: 500px; ">
+<div class="cell" style="font-size: 0.85em">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb16-2"><a href="#cb16-2"></a>  <span class="fu">textInput</span>(<span class="st">"name"</span>, <span class="st">"What's your name?"</span>),</span>
+<span id="cb16-3"><a href="#cb16-3"></a>  <span class="fu">textOutput</span>(<span class="st">"text"</span>)</span>
+<span id="cb16-4"><a href="#cb16-4"></a>  )</span>
+<span id="cb16-5"><a href="#cb16-5"></a></span>
+<span id="cb16-6"><a href="#cb16-6"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb16-7"><a href="#cb16-7"></a>  <span class="co">#input$name &lt;- "Jeremy Mack"</span></span>
+<span id="cb16-8"><a href="#cb16-8"></a>  <span class="co">#paste("Hello, my name is ", input$name)</span></span>
+<span id="cb16-9"><a href="#cb16-9"></a>  output<span class="sc">$</span>texts <span class="ot">&lt;-</span> <span class="fu">renderText</span>(</span>
+<span id="cb16-10"><a href="#cb16-10"></a>    <span class="fu">paste</span>(<span class="st">"Hello, my name is "</span>, input<span class="sc">$</span>name))</span>
+<span id="cb16-11"><a href="#cb16-11"></a>  }</span>
+<span id="cb16-12"><a href="#cb16-12"></a></span>
+<span id="cb16-13"><a href="#cb16-13"></a><span class="fu">shinyApp</span>(ui, server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="fragment" data-fragment-index="1">
+<p><img data-src="images/error6.png" class="absolute" style="top: 305px; right: 0px; width: 500px; "></p>
+</div>
+</section>
+<section id="topic-3-reactive-programming-server-4" class="slide level2" data-menu-title="Reactive Programming">
+<h2>Topic 3: Reactive Programming (server)</h2>
+<ul>
+<li><p>Application’s back end logic</p></li>
+<li><p>Built within a <code>server</code> function</p></li>
+<li><p>Renders outputs based on inputs</p></li>
+<li><p>Some things to remember:</p>
+<ul>
+<li>Input objects are read only</li>
+<li>Input and output objects are read in<br>reactive context created by functions like<br><code>renderText</code> or <code>reactive</code></li>
+<li>Check your spelling!</li>
+</ul></li>
+</ul>
+<div class="absolute" style="top: 55px; right: 0px; width: 500px; ">
+<div class="cell" style="font-size: 0.85em">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb17-2"><a href="#cb17-2"></a>  <span class="fu">textInput</span>(<span class="st">"name"</span>, <span class="st">"What's your name?"</span>),</span>
+<span id="cb17-3"><a href="#cb17-3"></a>  <span class="fu">textOutput</span>(<span class="st">"text"</span>)</span>
+<span id="cb17-4"><a href="#cb17-4"></a>  )</span>
+<span id="cb17-5"><a href="#cb17-5"></a></span>
+<span id="cb17-6"><a href="#cb17-6"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb17-7"><a href="#cb17-7"></a>  <span class="co">#input$name &lt;- "Jeremy Mack"</span></span>
+<span id="cb17-8"><a href="#cb17-8"></a>  <span class="co">#paste("Hello, my name is ", input$name)</span></span>
+<span id="cb17-9"><a href="#cb17-9"></a>  output<span class="sc">$</span>text <span class="ot">&lt;-</span> <span class="fu">renderText</span>(</span>
+<span id="cb17-10"><a href="#cb17-10"></a>    <span class="fu">paste</span>(<span class="st">"Hello, my name is "</span>, input<span class="sc">$</span>name))</span>
+<span id="cb17-11"><a href="#cb17-11"></a>  }</span>
+<span id="cb17-12"><a href="#cb17-12"></a></span>
+<span id="cb17-13"><a href="#cb17-13"></a><span class="fu">shinyApp</span>(ui, server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="fragment" data-fragment-index="1">
+<p><img data-src="images/error8.png" class="absolute" style="top: 305px; right: 0px; width: 500px; "></p>
+</div>
+</section>
+<section id="review---server-function" class="slide level2" data-background="#000000" data-menu-title="Review 1 - server">
+<h2>Review - Server function:</h2>
+<p><img data-src="images/shiny_hex.png" class="absolute" style="bottom: 0px; right: 0px; height: 40%; "></p>
+<ul>
+<li><p><code>shiny</code> package - web application framework for R</p></li>
+<li><p>Three basic components:</p>
+<ol type="1">
+<li>User interface (ui) object</li>
+<li>Server function (server)</li>
+<li>Call to the <code>shinyApp</code> function</li>
+</ol></li>
+</ul>
+<div class="fragment">
+<ul>
+<li><p>Server function (server):</p>
+<ul>
+<li>Application’s back end logic</li>
+<li><span style="color:#edea2b"><strong>Reactive programming</strong></span>
+<ol type="1">
+<li>Reacts to inputs from the ui</li>
+<li>Renders outputs</li>
+<li>Fills in output placeholders created in the ui</li>
+</ol></li>
+</ul></li>
+</ul>
+</div>
+</section></section>
+<section>
+<section id="topic-4" class="title-slide slide level1 center" data-menu-title="Topic 4">
+<h1>Topic 4</h1>
+<p><span style="font-size: 1.5em; text-align: center">Layouts and Themes</span></p>
+</section>
+<section id="topic-4-layouts-and-themes" class="slide level2" data-menu-title="Layouts">
+<h2>Topic 4: Layouts and Themes</h2>
+<p><img data-src="images/shiny_hex.png" class="absolute" style="top: 15px; right: 50px; height: 250px; "></p>
+<ul>
+<li><p><span style="color:#edea2b">Layouts</span> add structure to an application</p></li>
+<li><p>Created by a hierarchy of functions</p></li>
+</ul>
+</section>
+<section id="topic-4-layouts-and-themes-1" class="slide level2" data-menu-title="sidebar" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Topic 4: Layouts and Themes</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<ul>
+<li><p><span style="color:#edea2b">Layouts</span> add structure to an application</p></li>
+<li><p>Created by a hierarchy of functions</p></li>
+<li><p>sidebarLayout:</p></li>
+</ul>
+<div class="cell" style="font-size: 0.85em">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb18-1" class="hljs-ln-code"><a href="#cb18-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb18-2" class="hljs-ln-code"><a href="#cb18-2"></a>)</span>
+<span id="cb18-3" class="hljs-ln-code"><a href="#cb18-3"></a></span>
+<span id="cb18-4" class="hljs-ln-code"><a href="#cb18-4"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {}</span>
+<span id="cb18-5" class="hljs-ln-code"><a href="#cb18-5"></a></span>
+<span id="cb18-6" class="hljs-ln-code"><a href="#cb18-6"></a><span class="fu">shinyApp</span>(ui, server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:40%;">
+<p><img data-src="images/layout1.png"></p>
+</div>
+</div>
+</section>
+<section id="topic-4-layouts-and-themes-2" class="slide level2" data-menu-title="sidebar" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Topic 4: Layouts and Themes</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<ul>
+<li><p><span style="color:#edea2b">Layouts</span> add structure to an application</p></li>
+<li><p>Created by a hierarchy of functions</p></li>
+<li><p>sidebarLayout:</p></li>
+</ul>
+<div class="cell" style="font-size: 0.85em">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb19-1" class="hljs-ln-code"><a href="#cb19-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb19-2" class="hljs-ln-code"><a href="#cb19-2"></a>  <span class="fu">titlePanel</span>(),</span>
+<span id="cb19-3" class="hljs-ln-code"><a href="#cb19-3"></a>  <span class="fu">sidebarLayout</span>(</span>
+<span id="cb19-4" class="hljs-ln-code"><a href="#cb19-4"></a>        <span class="fu">sidebarPanel</span>(),</span>
+<span id="cb19-5" class="hljs-ln-code"><a href="#cb19-5"></a>        <span class="fu">mainPanel</span>()</span>
+<span id="cb19-6" class="hljs-ln-code"><a href="#cb19-6"></a>        )</span>
+<span id="cb19-7" class="hljs-ln-code"><a href="#cb19-7"></a>)</span>
+<span id="cb19-8" class="hljs-ln-code"><a href="#cb19-8"></a></span>
+<span id="cb19-9" class="hljs-ln-code"><a href="#cb19-9"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {}</span>
+<span id="cb19-10" class="hljs-ln-code"><a href="#cb19-10"></a></span>
+<span id="cb19-11" class="hljs-ln-code"><a href="#cb19-11"></a><span class="fu">shinyApp</span>(ui, server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:40%;">
+<p><img data-src="images/layout1.png"></p>
+</div>
+</div>
+</section>
+<section id="topic-4-layouts-and-themes-3" class="slide level2" data-menu-title="sidebar" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Topic 4: Layouts and Themes</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<ul>
+<li><p><span style="color:#edea2b">Layouts</span> add structure to an application</p></li>
+<li><p>Created by a hierarchy of functions</p></li>
+<li><p>sidebarLayout:</p></li>
+</ul>
+<div class="cell" style="font-size: 0.85em">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb20-1" class="hljs-ln-code"><a href="#cb20-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb20-2" class="hljs-ln-code"><a href="#cb20-2"></a>  <span class="fu">titlePanel</span>(<span class="st">'My first Shiny App'</span>),</span>
+<span id="cb20-3" class="hljs-ln-code"><a href="#cb20-3"></a>  <span class="fu">sidebarLayout</span>(</span>
+<span id="cb20-4" class="hljs-ln-code"><a href="#cb20-4"></a>        <span class="fu">sidebarPanel</span>(</span>
+<span id="cb20-5" class="hljs-ln-code"><a href="#cb20-5"></a>          <span class="at">width=</span><span class="dv">2</span>,</span>
+<span id="cb20-6" class="hljs-ln-code"><a href="#cb20-6"></a>          <span class="fu">textInput</span>(<span class="st">'name'</span>, <span class="st">"What's your name?"</span>)),</span>
+<span id="cb20-7" class="hljs-ln-code"><a href="#cb20-7"></a>        <span class="fu">mainPanel</span>(<span class="fu">textOutput</span>(<span class="st">'text'</span>))</span>
+<span id="cb20-8" class="hljs-ln-code"><a href="#cb20-8"></a>        )</span>
+<span id="cb20-9" class="hljs-ln-code"><a href="#cb20-9"></a>)</span>
+<span id="cb20-10" class="hljs-ln-code"><a href="#cb20-10"></a></span>
+<span id="cb20-11" class="hljs-ln-code"><a href="#cb20-11"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {}</span>
+<span id="cb20-12" class="hljs-ln-code"><a href="#cb20-12"></a></span>
+<span id="cb20-13" class="hljs-ln-code"><a href="#cb20-13"></a><span class="fu">shinyApp</span>(ui, server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:40%;">
+<p><img data-src="images/layout1.png"></p>
+</div>
+</div>
+</section>
+<section id="topic-4-layouts-and-themes-4" class="slide level2" data-menu-title="sidebar" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Topic 4: Layouts and Themes</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<ul>
+<li><p><span style="color:#edea2b">Layouts</span> add structure to an application</p></li>
+<li><p>Created by a hierarchy of functions</p></li>
+<li><p>sidebarLayout:</p></li>
+</ul>
+<div class="cell" style="font-size: 0.85em">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb21-1" class="hljs-ln-code"><a href="#cb21-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb21-2" class="hljs-ln-code"><a href="#cb21-2"></a>  <span class="fu">titlePanel</span>(<span class="st">'My first Shiny App'</span>),</span>
+<span id="cb21-3" class="hljs-ln-code"><a href="#cb21-3"></a>  <span class="fu">sidebarLayout</span>(</span>
+<span id="cb21-4" class="hljs-ln-code"><a href="#cb21-4"></a>        <span class="fu">sidebarPanel</span>(</span>
+<span id="cb21-5" class="hljs-ln-code"><a href="#cb21-5"></a>          <span class="at">width=</span><span class="dv">2</span>,</span>
+<span id="cb21-6" class="hljs-ln-code"><a href="#cb21-6"></a>          <span class="fu">textInput</span>(<span class="st">'name'</span>, <span class="st">"What's your name?"</span>)),</span>
+<span id="cb21-7" class="hljs-ln-code"><a href="#cb21-7"></a>        <span class="fu">mainPanel</span>(<span class="fu">textOutput</span>(<span class="st">'text'</span>))</span>
+<span id="cb21-8" class="hljs-ln-code"><a href="#cb21-8"></a>        )</span>
+<span id="cb21-9" class="hljs-ln-code"><a href="#cb21-9"></a>)</span>
+<span id="cb21-10" class="hljs-ln-code"><a href="#cb21-10"></a></span>
+<span id="cb21-11" class="hljs-ln-code"><a href="#cb21-11"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb21-12" class="hljs-ln-code"><a href="#cb21-12"></a>  output<span class="sc">$</span>text <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
+<span id="cb21-13" class="hljs-ln-code"><a href="#cb21-13"></a>    <span class="cf">if</span> (input<span class="sc">$</span>name<span class="sc">==</span><span class="st">""</span>)</span>
+<span id="cb21-14" class="hljs-ln-code"><a href="#cb21-14"></a>      <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
+<span id="cb21-15" class="hljs-ln-code"><a href="#cb21-15"></a>    <span class="cf">else</span> <span class="fu">paste</span>(<span class="st">"Hello, my name is "</span>, input<span class="sc">$</span>name) </span>
+<span id="cb21-16" class="hljs-ln-code"><a href="#cb21-16"></a>    })</span>
+<span id="cb21-17" class="hljs-ln-code"><a href="#cb21-17"></a>}</span>
+<span id="cb21-18" class="hljs-ln-code"><a href="#cb21-18"></a></span>
+<span id="cb21-19" class="hljs-ln-code"><a href="#cb21-19"></a><span class="fu">shinyApp</span>(ui, server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:40%;">
+<p><img data-src="images/layout1.png"></p>
+</div>
+</div>
+</section>
+<section id="topic-4-layouts-and-themes-5" class="slide level2" data-menu-title="fluidrows" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Topic 4: Layouts and Themes</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<ul>
+<li><p><span style="color:#edea2b">Layouts</span> add structure to an application</p></li>
+<li><p>Created by a hierarchy of functions</p></li>
+<li><p>fluidRows with columns:</p></li>
+</ul>
+<div class="cell" style="font-size: 0.85em">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb22-1" class="hljs-ln-code"><a href="#cb22-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb22-2" class="hljs-ln-code"><a href="#cb22-2"></a>    <span class="fu">fluidRow</span>(</span>
+<span id="cb22-3" class="hljs-ln-code"><a href="#cb22-3"></a>        <span class="fu">column</span>(<span class="dv">4</span>, <span class="fu">textInput</span>(<span class="st">"name"</span>, <span class="st">"What's your name?"</span>)),</span>
+<span id="cb22-4" class="hljs-ln-code"><a href="#cb22-4"></a>        <span class="fu">column</span>(<span class="dv">8</span>, <span class="fu">textOutput</span>(<span class="st">"text"</span>))),</span>
+<span id="cb22-5" class="hljs-ln-code"><a href="#cb22-5"></a>    <span class="fu">fluidRow</span>(</span>
+<span id="cb22-6" class="hljs-ln-code"><a href="#cb22-6"></a>        <span class="fu">column</span>(<span class="dv">6</span>, <span class="fu">dataTableOutput</span>(<span class="st">"dynamic"</span>)),</span>
+<span id="cb22-7" class="hljs-ln-code"><a href="#cb22-7"></a>        <span class="fu">column</span>(<span class="dv">6</span>, <span class="fu">plotOutput</span>(<span class="st">"plot"</span>))))</span>
+<span id="cb22-8" class="hljs-ln-code"><a href="#cb22-8"></a></span>
+<span id="cb22-9" class="hljs-ln-code"><a href="#cb22-9"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb22-10" class="hljs-ln-code"><a href="#cb22-10"></a>    output<span class="sc">$</span>text <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
+<span id="cb22-11" class="hljs-ln-code"><a href="#cb22-11"></a>        <span class="cf">if</span> (input<span class="sc">$</span>name<span class="sc">==</span><span class="st">""</span>)</span>
+<span id="cb22-12" class="hljs-ln-code"><a href="#cb22-12"></a>            <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
+<span id="cb22-13" class="hljs-ln-code"><a href="#cb22-13"></a>        <span class="cf">else</span> <span class="fu">paste</span>(<span class="st">"Hello, my name is "</span>, input<span class="sc">$</span>name) </span>
+<span id="cb22-14" class="hljs-ln-code"><a href="#cb22-14"></a>    })</span>
+<span id="cb22-15" class="hljs-ln-code"><a href="#cb22-15"></a>    output<span class="sc">$</span>dynamic <span class="ot">&lt;-</span> <span class="fu">renderDataTable</span>(mtcars)</span>
+<span id="cb22-16" class="hljs-ln-code"><a href="#cb22-16"></a>    output<span class="sc">$</span>plot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>(</span>
+<span id="cb22-17" class="hljs-ln-code"><a href="#cb22-17"></a>        <span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(hp,mpg)) <span class="sc">+</span> <span class="fu">geom_point</span>())}</span>
+<span id="cb22-18" class="hljs-ln-code"><a href="#cb22-18"></a></span>
+<span id="cb22-19" class="hljs-ln-code"><a href="#cb22-19"></a><span class="fu">shinyApp</span>(ui, server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:40%;">
+<p><img data-src="images/layout2.png"></p>
+</div>
+</div>
+</section>
+<section id="topic-4-layouts-and-themes-6" class="slide level2" data-menu-title="tabset" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Topic 4: Layouts and Themes</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<ul>
+<li><p><span style="color:#edea2b">Layouts</span> add structure to an application</p></li>
+<li><p>Created by a hierarchy of functions</p></li>
+<li><p>Tabsets:</p></li>
+</ul>
+<div class="cell" style="font-size: 0.85em">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb23-1" class="hljs-ln-code"><a href="#cb23-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fixedPage</span>(</span>
+<span id="cb23-2" class="hljs-ln-code"><a href="#cb23-2"></a>  <span class="fu">tabsetPanel</span>(</span>
+<span id="cb23-3" class="hljs-ln-code"><a href="#cb23-3"></a>    <span class="fu">tabPanel</span>(<span class="st">"Import data"</span>, </span>
+<span id="cb23-4" class="hljs-ln-code"><a href="#cb23-4"></a>      <span class="fu">fileInput</span>(<span class="st">"file"</span>, <span class="st">"File:"</span>, <span class="at">buttonLabel=</span><span class="st">"Upload file"</span>),</span>
+<span id="cb23-5" class="hljs-ln-code"><a href="#cb23-5"></a>      <span class="fu">checkboxInput</span>(<span class="st">"header"</span>, <span class="st">"File has headers"</span>, <span class="cn">TRUE</span>)),</span>
+<span id="cb23-6" class="hljs-ln-code"><a href="#cb23-6"></a>    <span class="fu">tabPanel</span>(<span class="st">"Table"</span>, <span class="fu">dataTableOutput</span>(<span class="st">"table"</span>)),</span>
+<span id="cb23-7" class="hljs-ln-code"><a href="#cb23-7"></a>    <span class="fu">tabPanel</span>(<span class="st">"Graph"</span>, <span class="fu">plotOutput</span>(<span class="st">"plot"</span>))))</span>
+<span id="cb23-8" class="hljs-ln-code"><a href="#cb23-8"></a></span>
+<span id="cb23-9" class="hljs-ln-code"><a href="#cb23-9"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb23-10" class="hljs-ln-code"><a href="#cb23-10"></a>  df <span class="ot">&lt;-</span> <span class="fu">reactive</span>({</span>
+<span id="cb23-11" class="hljs-ln-code"><a href="#cb23-11"></a>    file <span class="ot">&lt;-</span> input<span class="sc">$</span>file</span>
+<span id="cb23-12" class="hljs-ln-code"><a href="#cb23-12"></a>    <span class="fu">read.csv</span>(file<span class="sc">$</span>datapath, <span class="at">header=</span>input<span class="sc">$</span>header)</span>
+<span id="cb23-13" class="hljs-ln-code"><a href="#cb23-13"></a>  })</span>
+<span id="cb23-14" class="hljs-ln-code"><a href="#cb23-14"></a>  output<span class="sc">$</span>table <span class="ot">&lt;-</span> <span class="fu">renderDataTable</span>(<span class="fu">df</span>())</span>
+<span id="cb23-15" class="hljs-ln-code"><a href="#cb23-15"></a>  output<span class="sc">$</span>plot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>(</span>
+<span id="cb23-16" class="hljs-ln-code"><a href="#cb23-16"></a>    <span class="fu">ggplot</span>(<span class="fu">df</span>(), <span class="fu">aes</span>(hp,mpg)) <span class="sc">+</span> <span class="fu">geom_point</span>())}</span>
+<span id="cb23-17" class="hljs-ln-code"><a href="#cb23-17"></a></span>
+<span id="cb23-18" class="hljs-ln-code"><a href="#cb23-18"></a><span class="fu">shinyApp</span>(ui, server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:40%;">
+<p><img data-src="images/layout3.png"></p>
+</div>
+</div>
+</section>
+<section id="topic-4-layouts-and-themes-7" class="slide level2" data-menu-title="Themes">
+<h2>Topic 4: Layouts and Themes</h2>
+<p><img data-src="images/shiny_hex.png" class="absolute" style="top: 15px; right: 50px; height: 250px; "></p>
+<ul>
+<li><p><span style="color:#edea2b">Themes</span> change the overall appearance</p></li>
+<li><p>Shiny uses a Bootstrap framework</p></li>
+</ul>
+</section>
+<section id="topic-4-layouts-and-themes-8" class="slide level2" data-menu-title="Themes">
+<h2>Topic 4: Layouts and Themes</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<ul>
+<li><p><span style="color:#edea2b">Themes</span> change the overall appearance</p></li>
+<li><p>Shiny uses a Bootstrap framework</p></li>
+<li><p>Customizations made using <code>bslib</code></p></li>
+</ul>
+<div class="cell" style="font-size: 0.85em">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fixedPage</span>(</span>
+<span id="cb24-2"><a href="#cb24-2"></a>  <span class="at">theme=</span>bslib<span class="sc">::</span><span class="fu">bs_theme</span>(<span class="at">bootswatch =</span> <span class="st">"darkly"</span>),</span>
+<span id="cb24-3"><a href="#cb24-3"></a>  <span class="fu">tabsetPanel</span>(</span>
+<span id="cb24-4"><a href="#cb24-4"></a>    <span class="fu">tabPanel</span>(<span class="st">"Import data"</span>, </span>
+<span id="cb24-5"><a href="#cb24-5"></a>      <span class="fu">fileInput</span>(<span class="st">"file"</span>, <span class="st">"File:"</span>, <span class="at">buttonLabel=</span><span class="st">"Upload file"</span>),</span>
+<span id="cb24-6"><a href="#cb24-6"></a>      <span class="fu">checkboxInput</span>(<span class="st">"header"</span>, <span class="st">"File has headers"</span>, <span class="cn">TRUE</span>)),</span>
+<span id="cb24-7"><a href="#cb24-7"></a>    <span class="fu">tabPanel</span>(<span class="st">"Table"</span>, <span class="fu">dataTableOutput</span>(<span class="st">"table"</span>)),</span>
+<span id="cb24-8"><a href="#cb24-8"></a>    <span class="fu">tabPanel</span>(<span class="st">"Graph"</span>, <span class="fu">plotOutput</span>(<span class="st">"plot"</span>))))</span>
+<span id="cb24-9"><a href="#cb24-9"></a></span>
+<span id="cb24-10"><a href="#cb24-10"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb24-11"><a href="#cb24-11"></a>  df <span class="ot">&lt;-</span> <span class="fu">reactive</span>({</span>
+<span id="cb24-12"><a href="#cb24-12"></a>    file <span class="ot">&lt;-</span> input<span class="sc">$</span>file</span>
+<span id="cb24-13"><a href="#cb24-13"></a>    <span class="fu">read.csv</span>(file<span class="sc">$</span>datapath, <span class="at">header=</span>input<span class="sc">$</span>header)</span>
+<span id="cb24-14"><a href="#cb24-14"></a>  })</span>
+<span id="cb24-15"><a href="#cb24-15"></a>  output<span class="sc">$</span>table <span class="ot">&lt;-</span> <span class="fu">renderDataTable</span>(<span class="fu">df</span>())</span>
+<span id="cb24-16"><a href="#cb24-16"></a>  output<span class="sc">$</span>plot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>(</span>
+<span id="cb24-17"><a href="#cb24-17"></a>    <span class="fu">ggplot</span>(<span class="fu">df</span>(), <span class="fu">aes</span>(hp,mpg)) <span class="sc">+</span> <span class="fu">geom_point</span>())}</span>
+<span id="cb24-18"><a href="#cb24-18"></a></span>
+<span id="cb24-19"><a href="#cb24-19"></a><span class="fu">shinyApp</span>(ui, server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:40%;">
+<p><img data-src="images/layout4.png"></p>
+</div>
+</div>
 <div class="footer footer-default">
 
 </div>
@@ -611,6 +1395,48 @@
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          // dispatch for htmlwidgets
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for reveal
+        if (window.Reveal) {
+          window.Reveal.addEventListener("slidechanged", function(event) {
+            fireSlideChanged(event.previousSlide, event.currentSlide);
+          });
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {

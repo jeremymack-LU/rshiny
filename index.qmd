@@ -61,12 +61,20 @@ The presentation is split into seven topics:
 ## Topic 1: Shiny Apps - an overview {data-menu-title="Shiny overview"}
 
 -   Posit product - `shiny`
+    ```{r style="font-size: 0.85em"}
+#| echo: true
+#| eval: false
+  
+install.packages('shiny'); library(shiny)
+    ```
 
--   Build interactive web applications, reports,and</br>dashboards with R
+-   Web application framework for R
 
--   [**Reactive Programming**]{style="color:#edea2b"}
+-   Build interactive web applications, reports, and dashboards
 
-![](images/shiny_hex.png){.absolute top="52" right="0" width="30%"}
+    -   [**Reactive Programming**]{style="color:#edea2b"}
+
+![](images/shiny_hex.png){.absolute top="15" right="50" height="250"}
 
 ## Topic 1: Shiny Apps - an overview {data-menu-title="Shiny example"}
 
@@ -76,20 +84,796 @@ The presentation is split into seven topics:
 
 </p>
 
+## Topic 1: Shiny Apps - an overview {data-menu-title="Shiny start"}
+
+-   Posit product - `shiny`
+
+-   Web application framework for R
+
+-   Three ways to start creating a Shiny App:
+
+::: fragment
+::: panel-tabset
+### 1
+
+1.  In RStudio, click the new file button and select `Shiny Web App...`
+
+<center>
+
+<img src="./images/shiny_start.png" alt="screenshot" height="280"/>
+
+</center>
+
+### 2
+
+2.  In RStudio, click `File` \| `New Project`, select `New Directory`, and then click `Shiny Web Application`
+
+<center>
+
+<img src="./images/shiny_start4a.png" alt="screenshot" height="280"/>   <img src="./images/shiny_start4b.png" alt="screenshot" height="280"/>
+
+</center>
+
+### 3
+
+3.  Create a new directory and put a single file called `app.R` in it</br>
+(\*Shortcut - add the app boilerplate by typing `shinyapp` and pressing Shift+Tab)
+
+<center>
+
+<img src="./images/shiny_start5.png" alt="screenshot" height="280"/>   <img src="./images/shiny_start2.png" alt="screenshot" height="280"/>   <img src="./images/shiny_start3.png" alt="screenshot" height="280"/>
+
+</center>
+:::
+:::
+
+![](images/shiny_hex.png){.absolute top="15" right="50" height="250"}
+
 ## Topic 1: Shiny Apps - an overview {data-menu-title="Shiny components"}
 
 -   Posit product - `shiny`
 
--   Build interactive web applications, reports,and</br>dashboards with R
-
--   [**Reactive Programming**]{style="color:#edea2b"}
+-   Web application framework for R
 
 -   Three basic components:
 
-    ::: fragment
-    1. user interface object (ui)
-    2. server function (server)
-    3. a call to the shinyApp function
+    ::: {.incremental}
+    1. User interface (ui) object
+    2. Server function (server)
+    3. Call to the shinyApp function
     :::
 
-![](images/shiny_hex.png){.absolute top="52" right="0" width="30%"}
+![](images/shiny_hex.png){.absolute top="15" right="50" height="250"}
+
+# Topic 2 {data-menu-title="Topic 2"}
+
+[User Interface (ui)]{style="font-size: 1.5em; text-align: center"}
+
+## Topic 2: User Interface (ui) {data-menu-title="ui inputs"}
+
+![](images/shiny_hex.png){.absolute top="15" right="50" height="250"}
+
+-   Application's front end appearance
+
+-   Collection of `input` and `output` functions
+
+::: {.fragment fragment-index=1}
+-   Input functions
+
+    - Adds input controls to the ui
+    - First argument: `inputId`
+    - Basic types:
+    
+      1. Text
+      2. Numeric
+      3. Dates
+      4. Choices (drop downs, radio buttons, checkboxes)
+      5. Uploads
+      6. Action buttons
+:::
+
+## Topic 2: User Interface (ui) {data-menu-title="ui inputs"}
+    
+::: panel-tabset
+### Text
+
+```{r style="font-size: 0.85em"}
+#| eval: false
+#| echo: true
+ui <- fluidPage(
+  textInput("name", "What's your name?"),
+  passwordInput("password", "What's your password?"),
+  textAreaInput("story", "Tell me about yourself", rows = 3)
+  )
+
+server <- function(input, output, session) {}
+
+shinyApp(ui, server)
+```
+
+### Numeric
+
+```{r style="font-size: 0.85em"}
+#| eval: false
+#| echo: true
+ui <- fluidPage(
+  numericInput("num", "Number one", value = 0, min = 0, max = 100),
+  sliderInput("num2", "Number two", value = 50, min = 0, max = 100),
+  sliderInput("rng", "Range", value = c(10, 20), min = 0, max = 100)
+  )
+
+server <- function(input, output, session) {}
+
+shinyApp(ui, server)
+```
+
+### Dates
+
+```{r style="font-size: 0.85em"}
+#| eval: false
+#| echo: true
+ui <- fluidPage(
+    dateInput("dob", "When were you born?"),
+    dateRangeInput("range", "What is the date range of your data?")
+    )
+
+server <- function(input, output, session) {}
+
+shinyApp(ui, server)
+```
+
+### Choices
+
+::: panel-tabset
+### Drop downs
+
+```{r style="font-size: 0.85em"}
+#| eval: false
+#| echo: true
+ui <- fluidPage(
+    selectInput("state", "What's your favorite state?", state.name),
+    selectInput("state2", "What's your favourite state(s)?", state.name, multiple = TRUE)
+    )
+
+server <- function(input, output, session) {}
+
+shinyApp(ui, server)
+```
+
+### Radio buttons
+
+```{r style="font-size: 0.85em"}
+#| eval: false
+#| echo: true
+animals <- c("dog", "cat", "mouse", "bird", "other", "I don't like animals")
+
+ui <- fluidPage(
+    radioButtons("animal", "What's your favorite animal?", animals)
+    )
+
+server <- function(input, output, session) {}
+
+shinyApp(ui, server)
+```
+
+### Checkboxes
+
+```{r style="font-size: 0.85em"}
+#| eval: false
+#| echo: true
+ui <- fluidPage(
+    radioButtons("animal", "What's your favorite animal?", animals),
+    checkboxGroupInput("animal", "What animals do you like?", animals)
+    )
+
+server <- function(input, output, session) {}
+
+shinyApp(ui, server)
+```
+:::
+
+### Uploads
+
+```{r style="font-size: 0.85em"}
+#| eval: false
+#| echo: true
+ui <- fluidPage(
+    fileInput("upload", NULL)
+    )
+
+server <- function(input, output, session) {}
+
+shinyApp(ui, server)
+```
+
+### Action buttons
+
+```{r style="font-size: 0.85em"}
+#| eval: false
+#| echo: true
+ui <- fluidPage(
+  actionButton("click", "Click me!"),
+  actionButton("download", "Download")
+  )
+
+server <- function(input, output, session) {}
+
+shinyApp(ui, server)
+```
+:::
+
+## Topic 2: User Interface (ui) {data-menu-title="ui outputs"}
+
+![](images/shiny_hex.png){.absolute top="15" right="50" height="250"}
+
+-   Application's front end appearance
+
+-   Collection of `input` and `output` functions
+
+::: {.fragment fragment-index=1}
+-   Output functions
+
+    - Creates placeholders later filled by the server function (render)
+    - First argument: `outputId`
+    - Basic types:
+    
+      1. Text
+      2. Tables
+      3. Plots
+:::
+
+## Topic 2: User Interface (ui) {data-menu-title="ui outputs"}
+::: panel-tabset
+### Text
+
+```{r}
+#| eval: false
+#| echo: true
+
+ui <- fluidPage(
+    textInput("name", "What's your name?"),
+    textOutput("text")
+    )
+
+server <- function(input, output, session) {
+    output$text <- renderText({ 
+        input$name
+      })
+    }
+
+shinyApp(ui, server)
+```
+
+### Tables
+
+```{r}
+#| eval: false
+#| echo: true
+
+ui <- fluidPage(
+    tableOutput("static"),
+    dataTableOutput("dynamic")
+    )
+
+server <- function(input, output, session) {
+    output$static <- renderTable(head(mtcars))
+    output$dynamic <- renderDataTable(mtcars, options = list(pageLength = 5))
+    }
+
+shinyApp(ui, server)
+```
+
+### Plots
+
+```{r}
+#| eval: false
+#| echo: true
+
+library(ggplot2)
+
+ui <- fluidPage(
+    plotOutput("plot", width = "800px")
+    )
+
+server <- function(input, output, session) {
+    output$plot <- renderPlot(
+        ggplot(mtcars) + geom_point(aes(mpg,hp))
+        )
+    }
+
+shinyApp(ui, server)
+```
+:::
+
+## Review - User Interface (ui): {data-background="#000000" data-menu-title="Review 1 - ui"}
+
+![](images/shiny_hex.png){.absolute bottom="0" right="0" height="40%"}
+
+-   `shiny` package - web application framework for R
+
+-   Three basic components:
+
+    1. User interface (ui) object
+    2. Server function (server)
+    3. Call to the `shinyApp` function
+
+::: fragment
+-   User interface (ui) object:
+    
+    - Front end appearance
+    - Collection of `input` and `output` functions
+    - Id arguments used for reference within the `server` function
+:::
+
+# Topic 3 {data-menu-title="Topic 3"}
+
+[Reactive Programming (server)]{style="font-size: 1.5em; text-align: center"}
+
+## Topic 3: Reactive Programming (server) {data-menu-title="Reactive Programming"}
+
+::: {.fragment .fade-out fragment-index=1}
+![](images/shiny_hex.png){.absolute top="15" right="50" height="250"}
+:::
+
+-   Application's back end logic
+
+-   Built within a `server` function
+
+-   Renders outputs based on inputs
+
+::: {.fragment fragment-index=1}
+::: columns
+::: {.column width="50%"}
+```{r style="font-size: 0.85em"}
+#| eval: false
+#| echo: true
+ui <- fluidPage(
+  textInput("name", "What's your name?"),
+  textOutput("text")
+  )
+
+server <- function(input, output, session) {
+  output$text <- renderText(
+    paste("Hello, my name is ", input$name))
+  }
+
+shinyApp(ui, server)
+```
+:::
+:::
+
+![](images/reactive0.png){.absolute top="55" right="14" width="450"}
+![](images/reactive1.png){.absolute top="240" right="14" width="450"}
+![](images/reactive2.png){.absolute top="428" right="14" width="450"}
+:::
+
+## Topic 3: Reactive Programming (server) {data-menu-title="Reactive Programming" auto-animate="true"}
+
+-   Application's back end logic
+
+-   Built within a `server` function
+
+-   Renders outputs based on inputs
+
+-   Some things to remember:
+
+    - Input objects are read only
+
+::: {.absolute top="55" right="0" width="500"}
+```{r style="font-size: 0.85em"}
+#| eval: false
+#| echo: true
+ui <- fluidPage(
+  textInput("name", "What's your name?"),
+  textOutput("text")
+  )
+
+server <- function(input, output, session) {
+  input$name <- "Jeremy Mack"
+  }
+
+shinyApp(ui, server)
+```
+:::
+
+::: {.fragment fragment-index=1}
+![](images/error2.png){.absolute top="250" right="0" width="500"}
+:::
+
+## Topic 3: Reactive Programming (server) {data-menu-title="Reactive Programming"}
+
+-   Application's back end logic
+
+-   Built within a `server` function
+
+-   Renders outputs based on inputs
+
+-   Some things to remember:
+
+    - Input objects are read only
+    - Input and output objects are read in</br>reactive context created by functions like</br>`renderText` or `reactive`
+
+::: {.absolute top="55" right="0" width="500"}
+```{r style="font-size: 0.85em"}
+#| eval: false
+#| echo: true
+ui <- fluidPage(
+  textInput("name", "What's your name?"),
+  textOutput("text")
+  )
+
+server <- function(input, output, session) {
+  #input$name <- "Jeremy Mack"
+  paste("Hello, my name is ", input$name)
+  }
+
+shinyApp(ui, server)
+```
+:::
+
+::: {.fragment fragment-index=1}
+![](images/error4.png){.absolute top="270" right="0" width="500"}
+:::
+
+## Topic 3: Reactive Programming (server) {data-menu-title="Reactive Programming"}
+
+-   Application's back end logic
+
+-   Built within a `server` function
+
+-   Renders outputs based on inputs
+
+-   Some things to remember:
+
+    - Input objects are read only
+    - Input and output objects are read in</br>reactive context created by functions like</br>`renderText` or `reactive`
+    - Check your spelling!
+
+::: {.absolute top="55" right="0" width="500"}
+```{r style="font-size: 0.85em"}
+#| eval: false
+#| echo: true
+ui <- fluidPage(
+  textInput("name", "What's your name?"),
+  textOutput("text")
+  )
+
+server <- function(input, output, session) {
+  #input$name <- "Jeremy Mack"
+  #paste("Hello, my name is ", input$name)
+  output$texts <- renderText(
+    paste("Hello, my name is ", input$name))
+  }
+
+shinyApp(ui, server)
+```
+:::
+
+::: {.fragment fragment-index=1}
+![](images/error6.png){.absolute top="305" right="0" width="500"}
+:::
+
+## Topic 3: Reactive Programming (server) {data-menu-title="Reactive Programming"}
+
+-   Application's back end logic
+
+-   Built within a `server` function
+
+-   Renders outputs based on inputs
+
+-   Some things to remember:
+
+    - Input objects are read only
+    - Input and output objects are read in</br>reactive context created by functions like</br>`renderText` or `reactive`
+    - Check your spelling!
+
+::: {.absolute top="55" right="0" width="500"}
+```{r style="font-size: 0.85em"}
+#| eval: false
+#| echo: true
+ui <- fluidPage(
+  textInput("name", "What's your name?"),
+  textOutput("text")
+  )
+
+server <- function(input, output, session) {
+  #input$name <- "Jeremy Mack"
+  #paste("Hello, my name is ", input$name)
+  output$text <- renderText(
+    paste("Hello, my name is ", input$name))
+  }
+
+shinyApp(ui, server)
+```
+:::
+
+::: {.fragment fragment-index=1}
+![](images/error8.png){.absolute top="305" right="0" width="500"}
+:::
+
+## Review - Server function: {data-background="#000000" data-menu-title="Review 1 - server"}
+
+![](images/shiny_hex.png){.absolute bottom="0" right="0" height="40%"}
+
+-   `shiny` package - web application framework for R
+
+-   Three basic components:
+
+    1. User interface (ui) object
+    2. Server function (server)
+    3. Call to the `shinyApp` function
+
+::: fragment
+-   Server function (server):
+    
+    - Application's back end logic
+    - [**Reactive programming**]{style="color:#edea2b"}
+      1. Reacts to inputs from the ui
+      2. Renders outputs
+      3. Fills in output placeholders created in the ui
+:::
+
+# Topic 4 {data-menu-title="Topic 4"}
+
+[Layouts and Themes]{style="font-size: 1.5em; text-align: center"}
+
+## Topic 4: Layouts and Themes {data-menu-title="Layouts"}
+
+![](images/shiny_hex.png){.absolute top="15" right="50" height="250"}
+
+-   [Layouts]{style="color:#edea2b"} add structure to an application
+
+-   Created by a hierarchy of functions
+
+## Topic 4: Layouts and Themes {data-menu-title="sidebar" auto-animate="true"}
+
+::: columns
+::: {.column width="60%"}
+-   [Layouts]{style="color:#edea2b"} add structure to an application
+
+-   Created by a hierarchy of functions
+
+-   sidebarLayout:
+
+```{r style="font-size: 0.85em"}
+#| eval: false
+#| echo: true
+ui <- fluidPage(
+)
+
+server <- function(input, output, session) {}
+
+shinyApp(ui, server)
+```
+:::
+::: {.column width="40%"}
+![](images/layout1.png)
+:::
+:::
+
+## Topic 4: Layouts and Themes {data-menu-title="sidebar" auto-animate="true"}
+
+::: columns
+::: {.column width="60%"}
+-   [Layouts]{style="color:#edea2b"} add structure to an application
+
+-   Created by a hierarchy of functions
+
+-   sidebarLayout:
+
+```{r style="font-size: 0.85em"}
+#| eval: false
+#| echo: true
+ui <- fluidPage(
+  titlePanel(),
+  sidebarLayout(
+        sidebarPanel(),
+        mainPanel()
+        )
+)
+
+server <- function(input, output, session) {}
+
+shinyApp(ui, server)
+```
+:::
+::: {.column width="40%"}
+![](images/layout1.png)
+:::
+:::
+
+## Topic 4: Layouts and Themes {data-menu-title="sidebar" auto-animate="true"}
+
+::: columns
+::: {.column width="60%"}
+-   [Layouts]{style="color:#edea2b"} add structure to an application
+
+-   Created by a hierarchy of functions
+
+-   sidebarLayout:
+
+```{r style="font-size: 0.85em"}
+#| eval: false
+#| echo: true
+ui <- fluidPage(
+  titlePanel('My first Shiny App'),
+  sidebarLayout(
+        sidebarPanel(
+          width=2,
+          textInput('name', "What's your name?")),
+        mainPanel(textOutput('text'))
+        )
+)
+
+server <- function(input, output, session) {}
+
+shinyApp(ui, server)
+```
+:::
+::: {.column width="40%"}
+![](images/layout1.png)
+:::
+:::
+
+## Topic 4: Layouts and Themes {data-menu-title="sidebar" auto-animate="true"}
+
+::: columns
+::: {.column width="60%"}
+-   [Layouts]{style="color:#edea2b"} add structure to an application
+
+-   Created by a hierarchy of functions
+
+-   sidebarLayout:
+
+```{r style="font-size: 0.85em"}
+#| eval: false
+#| echo: true
+ui <- fluidPage(
+  titlePanel('My first Shiny App'),
+  sidebarLayout(
+        sidebarPanel(
+          width=2,
+          textInput('name', "What's your name?")),
+        mainPanel(textOutput('text'))
+        )
+)
+
+server <- function(input, output, session) {
+  output$text <- renderText({
+    if (input$name=="")
+      return(NULL)
+    else paste("Hello, my name is ", input$name) 
+    })
+}
+
+shinyApp(ui, server)
+```
+:::
+::: {.column width="40%"}
+![](images/layout1.png)
+:::
+:::
+
+## Topic 4: Layouts and Themes {data-menu-title="fluidrows" auto-animate="true"}
+
+::: columns
+::: {.column width="60%"}
+-   [Layouts]{style="color:#edea2b"} add structure to an application
+
+-   Created by a hierarchy of functions
+
+-   fluidRows with columns:
+
+```{r style="font-size: 0.85em"}
+#| eval: false
+#| echo: true
+ui <- fluidPage(
+    fluidRow(
+        column(4, textInput("name", "What's your name?")),
+        column(8, textOutput("text"))),
+    fluidRow(
+        column(6, dataTableOutput("dynamic")),
+        column(6, plotOutput("plot"))))
+
+server <- function(input, output, session) {
+    output$text <- renderText({
+        if (input$name=="")
+            return(NULL)
+        else paste("Hello, my name is ", input$name) 
+    })
+    output$dynamic <- renderDataTable(mtcars)
+    output$plot <- renderPlot(
+        ggplot(mtcars, aes(hp,mpg)) + geom_point())}
+
+shinyApp(ui, server)
+```
+:::
+::: {.column width="40%"}
+![](images/layout2.png)
+:::
+:::
+
+## Topic 4: Layouts and Themes {data-menu-title="tabset" auto-animate="true"}
+
+::: columns
+::: {.column width="60%"}
+-   [Layouts]{style="color:#edea2b"} add structure to an application
+
+-   Created by a hierarchy of functions
+
+-   Tabsets:
+
+```{r style="font-size: 0.85em"}
+#| eval: false
+#| echo: true
+ui <- fixedPage(
+  tabsetPanel(
+    tabPanel("Import data", 
+      fileInput("file", "File:", buttonLabel="Upload file"),
+      checkboxInput("header", "File has headers", TRUE)),
+    tabPanel("Table", dataTableOutput("table")),
+    tabPanel("Graph", plotOutput("plot"))))
+
+server <- function(input, output, session) {
+  df <- reactive({
+    file <- input$file
+    read.csv(file$datapath, header=input$header)
+  })
+  output$table <- renderDataTable(df())
+  output$plot <- renderPlot(
+    ggplot(df(), aes(hp,mpg)) + geom_point())}
+
+shinyApp(ui, server)
+```
+:::
+::: {.column width="40%"}
+![](images/layout3.png)
+:::
+:::
+
+## Topic 4: Layouts and Themes {data-menu-title="Themes"}
+
+![](images/shiny_hex.png){.absolute top="15" right="50" height="250"}
+
+-   [Themes]{style="color:#edea2b"} change the overall appearance
+
+-   Shiny uses a Bootstrap framework
+
+## Topic 4: Layouts and Themes {data-menu-title="Themes"}
+
+::: columns
+::: {.column width="60%"}
+-   [Themes]{style="color:#edea2b"} change the overall appearance
+
+-   Shiny uses a Bootstrap framework
+
+-   Customizations made using `bslib`
+
+```{r style="font-size: 0.85em"}
+#| eval: false
+#| echo: true
+ui <- fixedPage(
+  theme=bslib::bs_theme(bootswatch = "darkly"),
+  tabsetPanel(
+    tabPanel("Import data", 
+      fileInput("file", "File:", buttonLabel="Upload file"),
+      checkboxInput("header", "File has headers", TRUE)),
+    tabPanel("Table", dataTableOutput("table")),
+    tabPanel("Graph", plotOutput("plot"))))
+
+server <- function(input, output, session) {
+  df <- reactive({
+    file <- input$file
+    read.csv(file$datapath, header=input$header)
+  })
+  output$table <- renderDataTable(df())
+  output$plot <- renderPlot(
+    ggplot(df(), aes(hp,mpg)) + geom_point())}
+
+shinyApp(ui, server)
+```
+:::
+::: {.column width="40%"}
+![](images/layout4.png)
+:::
+:::
