@@ -975,3 +975,31 @@ shinyApp(ui, server)
 <center <a href="https://shiny.rstudio.com/articles/html-tags.html"> <img src="./images/html.png" alt="Picture of learning R graph" height="70%" width="70%"/> </a> </center>
 
 </p>
+
+## Topic 4: Layouts and Themes {data-menu-title="Layouts"}
+
+::: {data-id="box1" auto-animate-delay="0" style="background: white; width: 300px; height: 280px; margin: 10px;" .absolute top="15" right="40"}
+:::
+
+![](images/awesome.png){.absolute top="20" right="85" height="250"}
+
+-   [Layouts]{style="color:#edea2b"} add structure to an application
+
+-   [Themes]{style="color:#edea2b"} change the overall appearance
+
+-   Extension packages exist that combine the two
+
+    - Posit - `shinydashboard`
+    - [Awesome Shiny Extensions](https://github.com/nanxstats/awesome-shiny-extensions)
+
+# Topic 5 {data-menu-title="Topic 5"}
+
+[Example - Lehigh Valley Temperature]{style="font-size: 1.5em; text-align: center"}
+
+## Topic 5: Example - Lehigh Valley Temperature {data-menu-title="Example"}
+
+<p>
+
+<a href="https://jeremymack.shinyapps.io/purpleair/"> <img src="./images/shinyapp.png" alt="Picture of learning R graph" height="100%" width="100%"/> </a>
+
+</p>
