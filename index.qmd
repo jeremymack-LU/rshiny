@@ -627,14 +627,14 @@ shinyApp(ui, server)
 
 ## Topic 4: Layouts and Themes {data-menu-title="sidebar" auto-animate="true"}
 
-::: columns
-::: {.column width="60%"}
 -   [Layouts]{style="color:#edea2b"} add structure to an application
 
 -   Created by a hierarchy of functions
 
 -   sidebarLayout:
 
+::: columns
+::: {.column width="60%"}
 ```{r style="font-size: 0.85em"}
 #| eval: false
 #| echo: true
@@ -647,20 +647,20 @@ shinyApp(ui, server)
 ```
 :::
 ::: {.column width="40%"}
-![](images/layout1.png)
+![](images/layout1.png){.absolute top="200" right="0" width="420"}
 :::
 :::
 
 ## Topic 4: Layouts and Themes {data-menu-title="sidebar" auto-animate="true"}
 
-::: columns
-::: {.column width="60%"}
 -   [Layouts]{style="color:#edea2b"} add structure to an application
 
 -   Created by a hierarchy of functions
 
 -   sidebarLayout:
 
+::: columns
+::: {.column width="60%"}
 ```{r style="font-size: 0.85em"}
 #| eval: false
 #| echo: true
@@ -678,20 +678,20 @@ shinyApp(ui, server)
 ```
 :::
 ::: {.column width="40%"}
-![](images/layout1.png)
+![](images/layout1.png){.absolute top="200" right="0" width="420"}
 :::
 :::
 
 ## Topic 4: Layouts and Themes {data-menu-title="sidebar" auto-animate="true"}
 
-::: columns
-::: {.column width="60%"}
 -   [Layouts]{style="color:#edea2b"} add structure to an application
 
 -   Created by a hierarchy of functions
 
 -   sidebarLayout:
 
+::: columns
+::: {.column width="60%"}
 ```{r style="font-size: 0.85em"}
 #| eval: false
 #| echo: true
@@ -711,20 +711,20 @@ shinyApp(ui, server)
 ```
 :::
 ::: {.column width="40%"}
-![](images/layout1.png)
+![](images/layout1.png){.absolute top="200" right="0" width="420"}
 :::
 :::
 
 ## Topic 4: Layouts and Themes {data-menu-title="sidebar" auto-animate="true"}
 
-::: columns
-::: {.column width="60%"}
 -   [Layouts]{style="color:#edea2b"} add structure to an application
 
 -   Created by a hierarchy of functions
 
 -   sidebarLayout:
 
+::: columns
+::: {.column width="60%"}
 ```{r style="font-size: 0.85em"}
 #| eval: false
 #| echo: true
@@ -750,20 +750,20 @@ shinyApp(ui, server)
 ```
 :::
 ::: {.column width="40%"}
-![](images/layout1.png)
+![](images/layout1.png){.absolute top="200" right="0" width="420"}
 :::
 :::
 
 ## Topic 4: Layouts and Themes {data-menu-title="fluidrows" auto-animate="true"}
 
-::: columns
-::: {.column width="60%"}
 -   [Layouts]{style="color:#edea2b"} add structure to an application
 
 -   Created by a hierarchy of functions
 
 -   fluidRows with columns:
 
+::: columns
+::: {.column width="60%"}
 ```{r style="font-size: 0.85em"}
 #| eval: false
 #| echo: true
@@ -789,20 +789,20 @@ shinyApp(ui, server)
 ```
 :::
 ::: {.column width="40%"}
-![](images/layout2.png)
+![](images/layout2.png){.absolute top="200" right="0" width="420"}
 :::
 :::
 
 ## Topic 4: Layouts and Themes {data-menu-title="tabset" auto-animate="true"}
 
-::: columns
-::: {.column width="60%"}
 -   [Layouts]{style="color:#edea2b"} add structure to an application
 
 -   Created by a hierarchy of functions
 
 -   Tabsets:
 
+::: columns
+::: {.column width="60%"}
 ```{r style="font-size: 0.85em"}
 #| eval: false
 #| echo: true
@@ -827,7 +827,7 @@ shinyApp(ui, server)
 ```
 :::
 ::: {.column width="40%"}
-![](images/layout3.png)
+![](images/layout3b.png){.absolute top="200" right="0" width="420"}
 :::
 :::
 
@@ -839,16 +839,54 @@ shinyApp(ui, server)
 
 -   Shiny uses a Bootstrap framework
 
-## Topic 4: Layouts and Themes {data-menu-title="Themes"}
+## Topic 4: Layouts and Themes {data-menu-title="Themes" auto-animate="true"}
 
-::: columns
-::: {.column width="60%"}
 -   [Themes]{style="color:#edea2b"} change the overall appearance
 
 -   Shiny uses a Bootstrap framework
 
--   Customizations made using `bslib`
+-   Customizations made using  `bslib`
 
+::: columns
+::: {.column width="60%"}
+```{r style="font-size: 0.85em"}
+#| eval: false
+#| echo: true
+ui <- fixedPage(
+  tabsetPanel(
+    tabPanel("Import data", 
+      fileInput("file", "File:", buttonLabel="Upload file"),
+      checkboxInput("header", "File has headers", TRUE)),
+    tabPanel("Table", dataTableOutput("table")),
+    tabPanel("Graph", plotOutput("plot"))))
+
+server <- function(input, output, session) {
+    df <- reactive({
+        file <- input$file
+        read.csv(file$datapath, header=input$header)
+    })
+    output$table <- renderDataTable(df())
+    output$plot <- renderPlot(
+        ggplot(df(), aes(hp,mpg)) + geom_point())}
+
+shinyApp(ui, server)
+```
+:::
+::: {.column width="40%"}
+![](images/layout3b.png){.absolute top="200" right="0" width="420"}
+:::
+:::
+
+## Topic 4: Layouts and Themes {data-menu-title="Themes" auto-animate="true"}
+
+-   [Themes]{style="color:#edea2b"} change the overall appearance
+
+-   Shiny uses a Bootstrap framework
+
+-   Customizations made using  `bslib`
+
+::: columns
+::: {.column width="60%"}
 ```{r style="font-size: 0.85em"}
 #| eval: false
 #| echo: true
@@ -874,6 +912,66 @@ shinyApp(ui, server)
 ```
 :::
 ::: {.column width="40%"}
-![](images/layout4.png)
+![](images/layout4b.png){.absolute top="200" right="0" width="420"}
 :::
 :::
+
+## Topic 4: Layouts and Themes {data-menu-title="Themes" auto-animate="true"}
+
+-   [Themes]{style="color:#edea2b"} change the overall appearance
+
+-   Shiny uses a Bootstrap framework
+
+-   Customizations made using  `bslib`
+
+-   Plot themes can be matched with  `thematic`
+
+::: columns
+::: {.column width="60%"}
+```{r style="font-size: 0.85em"}
+#| eval: false
+#| echo: true
+ui <- fixedPage(
+  theme=bslib::bs_theme(bootswatch = "darkly"),
+  tabsetPanel(
+    tabPanel("Import data", 
+      fileInput("file", "File:", buttonLabel="Upload file"),
+      checkboxInput("header", "File has headers", TRUE)),
+    tabPanel("Table", dataTableOutput("table")),
+    tabPanel("Graph", plotOutput("plot"))))
+
+server <- function(input, output, session) {
+  thematic::thematic_shiny()
+  df <- reactive({
+    file <- input$file
+    read.csv(file$datapath, header=input$header)
+  })
+  output$table <- renderDataTable(df())
+  output$plot <- renderPlot(
+    ggplot(df(), aes(hp,mpg)) + geom_point())}
+
+shinyApp(ui, server)
+```
+:::
+::: {.column width="40%"}
+![](images/layout5.png){.absolute top="241" right="0" width="420"}
+:::
+:::
+
+## Topic 4: Layouts and Themes {data-menu-title="Themes" auto-animate="true"}
+
+-   [Themes]{style="color:#edea2b"} change the overall appearance
+
+-   Shiny uses a Bootstrap framework
+
+-   Customizations made using  `bslib`
+
+-   Plot themes can be matched with  `thematic`
+
+-   Custom HTML and CSS can be applied
+
+<p>
+
+<center <a href="https://shiny.rstudio.com/articles/html-tags.html"> <img src="./images/html.png" alt="Picture of learning R graph" height="70%" width="70%"/> </a> </center>
+
+</p>
