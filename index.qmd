@@ -1221,3 +1221,27 @@ shinyApp(ui, server)
 <center <a href="https://jeremymack.shinyapps.io/purpleair/"> <img src="./images/climate_shiny.png" alt="Picture of learning R graph" height="100%" width="100%"/> </a> </center>
 
 </p>
+
+# Topic 6 {data-menu-title="Topic 6"}
+
+[Deploying Shiny Apps]{style="font-size: 1.5em; text-align: center"}
+
+## Topic 6: Deploying Shiny Apps {data-menu-title="Deployment"}
+
+-   Two methods for deployment:
+
+    1. Run application [locally](https://shiny.rstudio.com/articles/deployment-local.html)
+        - Gist, GitHub repository, .zip, R package
+        - Gist example:
+    ```{r style="font-size: 0.85em"}
+#| eval: false
+#| echo: true
+shiny::runGist('72d6b068a3377972f385f053c2d87388')
+    ```
+        
+    ::: fragment
+    2. Deploy application on the [web](https://shiny.rstudio.com/articles/deployment-web.html)
+        - Shiny server, shinyapps.io, RStudio Connect
+    :::
+
+![](images/shiny_hex.png){.absolute top="15" right="50" height="250"}
