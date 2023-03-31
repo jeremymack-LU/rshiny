@@ -1000,7 +1000,7 @@ shinyApp(ui, server)
 
 <p>
 
-<a href="https://jeremymack.shinyapps.io/purpleair/"> <img src="./images/climate_shiny.png" alt="Picture of learning R graph" height="100%" width="100%"/> </a>
+<center <a href="https://jeremymack.shinyapps.io/purpleair/"> <img src="./images/climate_shiny.png" alt="Picture of learning R graph" height="100%" width="100%"/> </a> </center>
 
 </p>
 
@@ -1218,6 +1218,6 @@ shinyApp(ui, server)
 
 <p>
 
-<a href="https://jeremymack.shinyapps.io/purpleair/"> <img src="./images/climate_shiny.png" alt="Picture of learning R graph" height="100%" width="100%"/> </a>
+<center <a href="https://jeremymack.shinyapps.io/purpleair/"> <img src="./images/climate_shiny.png" alt="Picture of learning R graph" height="100%" width="100%"/> </a> </center>
 
 </p>
