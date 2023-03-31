@@ -13,7 +13,7 @@ library(leaflet)         # JS leaflet library
 url <- "https://raw.githubusercontent.com/jeremymack-LU/rshiny/master/data/abe_climate.csv"
 df <- read_csv(url, col_types=cols(tavg=col_double()))
 # Fix extreme outlier
-df[df$date==as.Date("1954-05-20"),6] <- NA
+df[df$date==as.Date("1954-05-20"),8] <- NA
 # Calculate daily mean temperature (dmt) and day of year (doy)
 df <- df %>%
   # Convert from units of tenths

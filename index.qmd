@@ -180,6 +180,8 @@ install.packages('shiny'); library(shiny)
 ```{r style="font-size: 0.85em"}
 #| eval: false
 #| echo: true
+library(shiny)
+
 ui <- fluidPage(
   textInput("name", "What's your name?"),
   passwordInput("password", "What's your password?"),
@@ -196,6 +198,8 @@ shinyApp(ui, server)
 ```{r style="font-size: 0.85em"}
 #| eval: false
 #| echo: true
+library(shiny)
+
 ui <- fluidPage(
   numericInput("num", "Number one", value = 0, min = 0, max = 100),
   sliderInput("num2", "Number two", value = 50, min = 0, max = 100),
@@ -212,6 +216,8 @@ shinyApp(ui, server)
 ```{r style="font-size: 0.85em"}
 #| eval: false
 #| echo: true
+library(shiny)
+
 ui <- fluidPage(
     dateInput("dob", "When were you born?"),
     dateRangeInput("range", "What is the date range of your data?")
@@ -230,6 +236,8 @@ shinyApp(ui, server)
 ```{r style="font-size: 0.85em"}
 #| eval: false
 #| echo: true
+library(shiny)
+
 ui <- fluidPage(
     selectInput("state", "What's your favorite state?", state.name),
     selectInput("state2", "What's your favourite state(s)?", state.name, multiple = TRUE)
@@ -245,6 +253,8 @@ shinyApp(ui, server)
 ```{r style="font-size: 0.85em"}
 #| eval: false
 #| echo: true
+library(shiny)
+
 animals <- c("dog", "cat", "mouse", "bird", "other", "I don't like animals")
 
 ui <- fluidPage(
@@ -261,6 +271,8 @@ shinyApp(ui, server)
 ```{r style="font-size: 0.85em"}
 #| eval: false
 #| echo: true
+library(shiny)
+
 ui <- fluidPage(
     radioButtons("animal", "What's your favorite animal?", animals),
     checkboxGroupInput("animal", "What animals do you like?", animals)
@@ -277,6 +289,8 @@ shinyApp(ui, server)
 ```{r style="font-size: 0.85em"}
 #| eval: false
 #| echo: true
+library(shiny)
+
 ui <- fluidPage(
     fileInput("upload", NULL)
     )
@@ -291,6 +305,8 @@ shinyApp(ui, server)
 ```{r style="font-size: 0.85em"}
 #| eval: false
 #| echo: true
+library(shiny)
+
 ui <- fluidPage(
   actionButton("click", "Click me!"),
   actionButton("download", "Download")
@@ -329,6 +345,7 @@ shinyApp(ui, server)
 ```{r}
 #| eval: false
 #| echo: true
+library(shiny)
 
 ui <- fluidPage(
     textInput("name", "What's your name?"),
@@ -349,6 +366,7 @@ shinyApp(ui, server)
 ```{r}
 #| eval: false
 #| echo: true
+library(shiny)
 
 ui <- fluidPage(
     tableOutput("static"),
@@ -369,6 +387,7 @@ shinyApp(ui, server)
 #| eval: false
 #| echo: true
 
+library(shiny)
 library(ggplot2)
 
 ui <- fluidPage(
@@ -1044,7 +1063,7 @@ url <- "https://raw.githubusercontent.com/jeremymack-LU/shinyapps/master/data/ab
 df <- read_csv(url, col_types=cols(tavg=col_double()))
 
 # Fix extreme outlier
-df[df$date==as.Date("1954-05-20"),6] <- NA
+df[df$date==as.Date("1954-05-20"),8] <- NA
 
 # Calculate daily mean temperature (dmt) and day of year (doy)
 df <- df %>%
