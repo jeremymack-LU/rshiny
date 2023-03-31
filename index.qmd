@@ -1245,3 +1245,27 @@ shiny::runGist('72d6b068a3377972f385f053c2d87388')
     :::
 
 ![](images/shiny_hex.png){.absolute top="15" right="50" height="250"}
+
+# Topic 7 {data-menu-title="Topic 7"}
+
+[Resources]{style="font-size: 1.5em; text-align: center"}
+
+## Topic 7: Resources {data-menu-title="Resources"}
+
+-   [Lehigh's R Programming Slack Channel](https://lehigh-home.slack.com/archives/C04AE4B9X0S)
+
+-   External resources:
+    
+    - [R for Data Science - Book](https://r4ds.had.co.nz/)
+    - [R for Data Science - Slack Workspace](https://rfordatascience.slack.com)
+    - [RStudio Cheat Sheets](https://www.rstudio.com/resources/cheatsheets/)
+    - [Twitter for R Programmers](https://www.t4rstats.com/follow-some-folks.html)
+    - [LinkedIn Learning](https://www.linkedin.com/learning/search?keywords=r%20programming&u=2222241)
+
+-   Shiny Apps
+
+    - [Mastering Shiny by Hadley Wickham](https://mastering-shiny.org/)
+    - [RStudio tutortials](https://shiny.rstudio.com/tutorial/)
+    - [Shiny extensions](https://github.com/nanxstats/awesome-shiny-extensions)
+    
+![](images/master_shiny.jpg){.absolute bottom="0" right="0" width="35%"}
