@@ -10,7 +10,7 @@ library(leaflet)         # JS leaflet library
 
 # Load climate data ----
 # Read in climate data
-url <- "https://raw.githubusercontent.com/jeremymack-LU/shinyapps/master/data/abe_climate.csv"
+url <- "https://raw.githubusercontent.com/jeremymack-LU/rshiny/master/data/abe_climate.csv"
 df <- read_csv(url, col_types=cols(tavg=col_double()))
 # Fix extreme outlier
 df[df$date==as.Date("1954-05-20"),6] <- NA
@@ -43,7 +43,7 @@ monthly.sum <- df %>%
   rename(month=`month(date)`)
 # Long to wide format
 monthly.sum.W <- monthly.sum %>%
-  mutate(Year='1948-2021',label=month.abb[month]) %>% 
+  mutate(Year='1948-2022',label=month.abb[month]) %>% 
   pivot_wider(id_cols=Year,names_from=label,values_from=avg) %>% 
   mutate(Annual_mean=rowMeans(.[,2:13], na.rm=TRUE),
          Annual_diff=0)
@@ -62,7 +62,7 @@ ui <- dashboardPage(skin="black",
                       selectInput(
                         inputId="years",
                         label="Select year(s):",
-                        choices=seq(1948,2022,1),
+                        choices=seq(1948,2023,1),
                         multiple=TRUE,
                         selected=2022)),
                     dashboardBody(

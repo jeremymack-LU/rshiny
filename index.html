@@ -1280,6 +1280,214 @@
 <li><a href="https://github.com/nanxstats/awesome-shiny-extensions">Awesome Shiny Extensions</a></li>
 </ul></li>
 </ul>
+</section></section>
+<section>
+<section id="topic-5" class="title-slide slide level1 center" data-menu-title="Topic 5">
+<h1>Topic 5</h1>
+<p><span style="font-size: 1.5em; text-align: center">Example - Lehigh Valley Temperature</span></p>
+</section>
+<section id="topic-5-example---lehigh-valley-temperature" class="slide level2" data-menu-title="Example">
+<h2>Topic 5: Example - Lehigh Valley Temperature</h2>
+<p>
+</p><p><a href="https://jeremymack.shinyapps.io/purpleair/"> <img src="./images/climate_shiny.png" alt="Picture of learning R graph" height="100%" width="100%"> </a></p>
+<p></p>
+</section>
+<section id="topic-5-example---required-packages" class="slide level2" data-menu-title="Example - packages">
+<h2>Topic 5: Example - required packages</h2>
+<div class="cell" style="font-size: 0.85em">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="co"># Load packages ----</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a><span class="fu">library</span>(shiny)           <span class="co"># Web application framework</span></span>
+<span id="cb27-3"><a href="#cb27-3"></a><span class="fu">library</span>(shinydashboard)  <span class="co"># Dashboard templates for Shiny</span></span>
+<span id="cb27-4"><a href="#cb27-4"></a><span class="fu">library</span>(readr)           <span class="co"># Read in rectangular text files</span></span>
+<span id="cb27-5"><a href="#cb27-5"></a><span class="fu">library</span>(dplyr)           <span class="co"># Data manipulation</span></span>
+<span id="cb27-6"><a href="#cb27-6"></a><span class="fu">library</span>(tidyr)           <span class="co"># Data cleanup</span></span>
+<span id="cb27-7"><a href="#cb27-7"></a><span class="fu">library</span>(ggplot2)         <span class="co"># Grammar of graphics data viz</span></span>
+<span id="cb27-8"><a href="#cb27-8"></a><span class="fu">library</span>(lubridate)       <span class="co"># Working with dates</span></span>
+<span id="cb27-9"><a href="#cb27-9"></a><span class="fu">library</span>(leaflet)         <span class="co"># JS leaflet library</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<ul>
+<li>Note that bulk loading techniques will not work when deployed</li>
+</ul>
+<div class="cell" style="font-size: 0.85em">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="co"># Load packages ----</span></span>
+<span id="cb28-2"><a href="#cb28-2"></a><span class="fu">library</span>(pacman)</span>
+<span id="cb28-3"><a href="#cb28-3"></a><span class="fu">pload</span>(shiny,shinydashboard,readr,dplyr,tidyr,ggplot2,lubridate,leaflet)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="topic-5-example---data-data-cleanup" class="slide level2" data-menu-title="Example - data">
+<h2>Topic 5: Example - data &amp; data cleanup</h2>
+<div class="cell" style="font-size: 0.85em">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a><span class="co"># Load climate data ----</span></span>
+<span id="cb29-2"><a href="#cb29-2"></a></span>
+<span id="cb29-3"><a href="#cb29-3"></a><span class="co"># Read in climate data</span></span>
+<span id="cb29-4"><a href="#cb29-4"></a>url <span class="ot">&lt;-</span> <span class="st">"https://raw.githubusercontent.com/jeremymack-LU/shinyapps/master/data/abe_climate.csv"</span></span>
+<span id="cb29-5"><a href="#cb29-5"></a>df <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(url, <span class="at">col_types=</span><span class="fu">cols</span>(<span class="at">tavg=</span><span class="fu">col_double</span>()))</span>
+<span id="cb29-6"><a href="#cb29-6"></a></span>
+<span id="cb29-7"><a href="#cb29-7"></a><span class="co"># Fix extreme outlier</span></span>
+<span id="cb29-8"><a href="#cb29-8"></a>df[df<span class="sc">$</span>date<span class="sc">==</span><span class="fu">as.Date</span>(<span class="st">"1954-05-20"</span>),<span class="dv">6</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb29-9"><a href="#cb29-9"></a></span>
+<span id="cb29-10"><a href="#cb29-10"></a><span class="co"># Calculate daily mean temperature (dmt) and day of year (doy)</span></span>
+<span id="cb29-11"><a href="#cb29-11"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb29-12"><a href="#cb29-12"></a>  <span class="co"># Convert from units of tenths</span></span>
+<span id="cb29-13"><a href="#cb29-13"></a>  <span class="fu">mutate</span>(<span class="at">prcp=</span>prcp<span class="sc">/</span><span class="dv">10</span>,</span>
+<span id="cb29-14"><a href="#cb29-14"></a>         <span class="at">tmax=</span>tmax<span class="sc">/</span><span class="dv">10</span>,</span>
+<span id="cb29-15"><a href="#cb29-15"></a>         <span class="at">tmin=</span>tmin<span class="sc">/</span><span class="dv">10</span>,</span>
+<span id="cb29-16"><a href="#cb29-16"></a>         <span class="at">tavg=</span>tavg<span class="sc">/</span><span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb29-17"><a href="#cb29-17"></a>  <span class="co"># Convert to from degrees C to degrees F</span></span>
+<span id="cb29-18"><a href="#cb29-18"></a>  <span class="fu">mutate</span>(<span class="at">dmt=</span>(tmax<span class="sc">+</span>tmin)<span class="sc">/</span><span class="dv">2</span>,</span>
+<span id="cb29-19"><a href="#cb29-19"></a>         <span class="at">doy=</span><span class="fu">yday</span>(date),</span>
+<span id="cb29-20"><a href="#cb29-20"></a>         <span class="at">tmin=</span>tmin <span class="sc">*</span> <span class="fl">1.8</span> <span class="sc">+</span> <span class="dv">32</span>,</span>
+<span id="cb29-21"><a href="#cb29-21"></a>         <span class="at">tmax=</span>tmax <span class="sc">*</span> <span class="fl">1.8</span> <span class="sc">+</span> <span class="dv">32</span>,</span>
+<span id="cb29-22"><a href="#cb29-22"></a>         <span class="at">dmt=</span>dmt <span class="sc">*</span> <span class="fl">1.8</span> <span class="sc">+</span> <span class="dv">32</span>,</span>
+<span id="cb29-23"><a href="#cb29-23"></a>         <span class="at">year=</span><span class="fu">year</span>(date))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="topic-5-example---data-summary" class="slide level2" data-menu-title="Example - data">
+<h2>Topic 5: Example - data summary</h2>
+<div class="cell" style="font-size: 0.85em">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="co"># Summarize temperature data ----</span></span>
+<span id="cb30-2"><a href="#cb30-2"></a></span>
+<span id="cb30-3"><a href="#cb30-3"></a><span class="co"># Calculate monthly means by year</span></span>
+<span id="cb30-4"><a href="#cb30-4"></a>monthly.means <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb30-5"><a href="#cb30-5"></a>    <span class="fu">group_by</span>(<span class="fu">month</span>(date), <span class="fu">year</span>(date)) <span class="sc">%&gt;%</span></span>
+<span id="cb30-6"><a href="#cb30-6"></a>    <span class="fu">summarize</span>(<span class="at">avg=</span><span class="fu">mean</span>(dmt, <span class="at">na.rm=</span><span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb30-7"><a href="#cb30-7"></a>    <span class="fu">rename</span>(<span class="at">month=</span><span class="st">`</span><span class="at">month(date)</span><span class="st">`</span>,</span>
+<span id="cb30-8"><a href="#cb30-8"></a>           <span class="at">year=</span><span class="st">`</span><span class="at">year(date)</span><span class="st">`</span>)</span>
+<span id="cb30-9"><a href="#cb30-9"></a></span>
+<span id="cb30-10"><a href="#cb30-10"></a><span class="co"># Calculate the overall means by month</span></span>
+<span id="cb30-11"><a href="#cb30-11"></a>monthly.sum <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb30-12"><a href="#cb30-12"></a>    <span class="fu">group_by</span>(<span class="fu">month</span>(date)) <span class="sc">%&gt;%</span></span>
+<span id="cb30-13"><a href="#cb30-13"></a>    <span class="fu">summarize</span>(<span class="at">avg=</span><span class="fu">mean</span>(dmt, <span class="at">na.rm=</span><span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb30-14"><a href="#cb30-14"></a>    <span class="fu">rename</span>(<span class="at">month=</span><span class="st">`</span><span class="at">month(date)</span><span class="st">`</span>)</span>
+<span id="cb30-15"><a href="#cb30-15"></a></span>
+<span id="cb30-16"><a href="#cb30-16"></a><span class="co"># Long to wide format</span></span>
+<span id="cb30-17"><a href="#cb30-17"></a>monthly.sum.W <span class="ot">&lt;-</span> monthly.sum <span class="sc">%&gt;%</span></span>
+<span id="cb30-18"><a href="#cb30-18"></a>    <span class="fu">mutate</span>(<span class="at">Year=</span><span class="st">'1948-2021'</span>,<span class="at">label=</span>month.abb[month]) <span class="sc">%&gt;%</span> </span>
+<span id="cb30-19"><a href="#cb30-19"></a>    <span class="fu">pivot_wider</span>(<span class="at">id_cols=</span>Year,<span class="at">names_from=</span>label,<span class="at">values_from=</span>avg) <span class="sc">%&gt;%</span> </span>
+<span id="cb30-20"><a href="#cb30-20"></a>    <span class="fu">mutate</span>(<span class="at">Annual_mean=</span><span class="fu">rowMeans</span>(.[,<span class="dv">2</span><span class="sc">:</span><span class="dv">13</span>], <span class="at">na.rm=</span><span class="cn">TRUE</span>),</span>
+<span id="cb30-21"><a href="#cb30-21"></a>           <span class="at">Annual_diff=</span><span class="dv">0</span>)</span>
+<span id="cb30-22"><a href="#cb30-22"></a></span>
+<span id="cb30-23"><a href="#cb30-23"></a><span class="co"># Assign labels and map settings</span></span>
+<span id="cb30-24"><a href="#cb30-24"></a>labels <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Jan"</span>,<span class="st">"Feb"</span>,<span class="st">"Mar"</span>,<span class="st">"Apr"</span>,<span class="st">"May"</span>,<span class="st">"Jun"</span>,<span class="st">"Jul"</span>,<span class="st">"Aug"</span>,<span class="st">"Sep"</span>,<span class="st">"Oct"</span>,<span class="st">"Nov"</span>,<span class="st">"Dec"</span>)</span>
+<span id="cb30-25"><a href="#cb30-25"></a>map    <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">lat=</span><span class="fl">40.65</span>, <span class="at">lng=</span><span class="sc">-</span><span class="fl">75.442</span>, <span class="at">zoom=</span><span class="dv">13</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="topic-5-example---shiny-app-ui" class="slide level2" data-menu-title="Example - ui">
+<h2>Topic 5: Example - shiny app ui</h2>
+<div class="cell" style="font-size: 0.85em">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="co"># Create the Shiny App ----</span></span>
+<span id="cb31-2"><a href="#cb31-2"></a></span>
+<span id="cb31-3"><a href="#cb31-3"></a><span class="co"># User Interface (ui)</span></span>
+<span id="cb31-4"><a href="#cb31-4"></a>ui <span class="ot">&lt;-</span> <span class="fu">dashboardPage</span>(<span class="at">skin=</span><span class="st">"black"</span>,</span>
+<span id="cb31-5"><a href="#cb31-5"></a>                    <span class="fu">dashboardHeader</span>(</span>
+<span id="cb31-6"><a href="#cb31-6"></a>                        <span class="at">title=</span><span class="st">"Lehigh Valley Temperature"</span>, <span class="at">titleWidth=</span><span class="dv">300</span>),</span>
+<span id="cb31-7"><a href="#cb31-7"></a>                    <span class="fu">dashboardSidebar</span>(</span>
+<span id="cb31-8"><a href="#cb31-8"></a>                        <span class="at">width=</span><span class="dv">300</span>,</span>
+<span id="cb31-9"><a href="#cb31-9"></a>                        <span class="fu">selectInput</span>(</span>
+<span id="cb31-10"><a href="#cb31-10"></a>                            <span class="at">inputId=</span><span class="st">"years"</span>,</span>
+<span id="cb31-11"><a href="#cb31-11"></a>                            <span class="at">label=</span><span class="st">"Select year(s):"</span>,</span>
+<span id="cb31-12"><a href="#cb31-12"></a>                            <span class="at">choices=</span><span class="fu">seq</span>(<span class="dv">1948</span>,<span class="dv">2022</span>,<span class="dv">1</span>),</span>
+<span id="cb31-13"><a href="#cb31-13"></a>                            <span class="at">multiple=</span><span class="cn">TRUE</span>,</span>
+<span id="cb31-14"><a href="#cb31-14"></a>                            <span class="at">selected=</span><span class="dv">2022</span>)),</span>
+<span id="cb31-15"><a href="#cb31-15"></a>                    <span class="fu">dashboardBody</span>(</span>
+<span id="cb31-16"><a href="#cb31-16"></a>                        <span class="fu">fluidRow</span>(<span class="fu">column</span>(<span class="dv">12</span>,<span class="fu">plotOutput</span>(<span class="st">"plot"</span>, <span class="at">height=</span><span class="st">'500px'</span>))),</span>
+<span id="cb31-17"><a href="#cb31-17"></a>                        <span class="fu">br</span>(),</span>
+<span id="cb31-18"><a href="#cb31-18"></a>                        <span class="fu">fluidRow</span>(<span class="fu">column</span>(<span class="dv">8</span>,<span class="fu">tableOutput</span>(<span class="st">"data"</span>)),</span>
+<span id="cb31-19"><a href="#cb31-19"></a>                                 <span class="fu">column</span>(<span class="dv">4</span>,<span class="fu">leafletOutput</span>(<span class="st">"map"</span>),</span>
+<span id="cb31-20"><a href="#cb31-20"></a>                                        <span class="fu">fluidRow</span>(<span class="fu">column</span>(<span class="dv">12</span>, <span class="st">'Location of Lehigh Valley weather station.'</span>))))</span>
+<span id="cb31-21"><a href="#cb31-21"></a>                    )</span>
+<span id="cb31-22"><a href="#cb31-22"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="topic-5-example---shiny-app-server" class="slide level2" data-menu-title="Example - server" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Topic 5: Example - shiny app server</h2>
+<div class="cell" style="font-size: 0.85em">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb32-1" class="hljs-ln-code"><a href="#cb32-1"></a><span class="co"># Server function (server)</span></span>
+<span id="cb32-2" class="hljs-ln-code"><a href="#cb32-2"></a></span>
+<span id="cb32-3" class="hljs-ln-code"><a href="#cb32-3"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb32-4" class="hljs-ln-code"><a href="#cb32-4"></a>  df.sub <span class="ot">&lt;-</span> <span class="fu">reactive</span>(monthly.means <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year <span class="sc">%in%</span> input<span class="sc">$</span>years))</span>
+<span id="cb32-5" class="hljs-ln-code"><a href="#cb32-5"></a>    </span>
+<span id="cb32-6" class="hljs-ln-code"><a href="#cb32-6"></a>  output<span class="sc">$</span>plot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>(<span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb32-7" class="hljs-ln-code"><a href="#cb32-7"></a>                                  <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(month,avg,<span class="at">group=</span>month), monthly.means) <span class="sc">+</span></span>
+<span id="cb32-8" class="hljs-ln-code"><a href="#cb32-8"></a>                                  <span class="fu">geom_point</span>(<span class="fu">aes</span>(month,avg), monthly.sum,<span class="at">size=</span><span class="dv">4</span>,<span class="at">fill=</span><span class="st">'darkgray'</span>,<span class="at">shape=</span><span class="dv">22</span>) <span class="sc">+</span></span>
+<span id="cb32-9" class="hljs-ln-code"><a href="#cb32-9"></a>                                  <span class="fu">geom_point</span>(<span class="fu">aes</span>(month,avg,<span class="at">color=</span><span class="fu">factor</span>(year)),<span class="fu">df.sub</span>(),<span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb32-10" class="hljs-ln-code"><a href="#cb32-10"></a>                                  <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">12</span>,<span class="dv">1</span>),<span class="at">labels=</span>labels,<span class="at">expand=</span><span class="fu">c</span>(<span class="fl">0.02</span>,<span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb32-11" class="hljs-ln-code"><a href="#cb32-11"></a>                                  <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Month"</span>,<span class="at">y=</span><span class="st">"Temperature (°F)"</span>,<span class="at">color=</span><span class="st">"Year"</span>) <span class="sc">+</span> <span class="fu">theme_dark</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="topic-5-example---shiny-app-server-1" class="slide level2" data-menu-title="Example - server" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Topic 5: Example - shiny app server</h2>
+<div class="cell" style="font-size: 0.85em">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb33-1" class="hljs-ln-code"><a href="#cb33-1"></a><span class="co"># Server function (server)</span></span>
+<span id="cb33-2" class="hljs-ln-code"><a href="#cb33-2"></a></span>
+<span id="cb33-3" class="hljs-ln-code"><a href="#cb33-3"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb33-4" class="hljs-ln-code"><a href="#cb33-4"></a>  df.sub <span class="ot">&lt;-</span> <span class="fu">reactive</span>(monthly.means <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year <span class="sc">%in%</span> input<span class="sc">$</span>years))</span>
+<span id="cb33-5" class="hljs-ln-code"><a href="#cb33-5"></a>  </span>
+<span id="cb33-6" class="hljs-ln-code"><a href="#cb33-6"></a>  output<span class="sc">$</span>plot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>(<span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb33-7" class="hljs-ln-code"><a href="#cb33-7"></a>                              <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(month,avg,<span class="at">group=</span>month), monthly.means) <span class="sc">+</span></span>
+<span id="cb33-8" class="hljs-ln-code"><a href="#cb33-8"></a>                              <span class="fu">geom_point</span>(<span class="fu">aes</span>(month,avg), monthly.sum,<span class="at">size=</span><span class="dv">4</span>,<span class="at">fill=</span><span class="st">'darkgray'</span>,<span class="at">shape=</span><span class="dv">22</span>) <span class="sc">+</span></span>
+<span id="cb33-9" class="hljs-ln-code"><a href="#cb33-9"></a>                              <span class="fu">geom_point</span>(<span class="fu">aes</span>(month,avg,<span class="at">color=</span><span class="fu">factor</span>(year)),<span class="fu">df.sub</span>(),<span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb33-10" class="hljs-ln-code"><a href="#cb33-10"></a>                              <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">12</span>,<span class="dv">1</span>),<span class="at">labels=</span>labels,<span class="at">expand=</span><span class="fu">c</span>(<span class="fl">0.02</span>,<span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb33-11" class="hljs-ln-code"><a href="#cb33-11"></a>                              <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Month"</span>,<span class="at">y=</span><span class="st">"Temperature (°F)"</span>,<span class="at">color=</span><span class="st">"Year"</span>) <span class="sc">+</span> <span class="fu">theme_dark</span>())</span>
+<span id="cb33-12" class="hljs-ln-code"><a href="#cb33-12"></a>  </span>
+<span id="cb33-13" class="hljs-ln-code"><a href="#cb33-13"></a>  output<span class="sc">$</span>data <span class="ot">&lt;-</span> <span class="fu">renderTable</span>({</span>
+<span id="cb33-14" class="hljs-ln-code"><a href="#cb33-14"></a>    <span class="cf">if</span>(<span class="fu">is.null</span>(input<span class="sc">$</span>years)) monthly.sum.W <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="st">'Annual Mean'</span><span class="ot">=</span>Annual_mean, <span class="st">'Annual Diff'</span><span class="ot">=</span>Annual_diff)</span>
+<span id="cb33-15" class="hljs-ln-code"><a href="#cb33-15"></a>    <span class="cf">else</span> <span class="fu">df.sub</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb33-16" class="hljs-ln-code"><a href="#cb33-16"></a>      <span class="fu">mutate</span>(<span class="at">month=</span><span class="fu">as.integer</span>(month),<span class="at">label=</span>month.abb[month],<span class="at">Year=</span><span class="fu">as.integer</span>(year)) <span class="sc">%&gt;%</span></span>
+<span id="cb33-17" class="hljs-ln-code"><a href="#cb33-17"></a>      <span class="fu">pivot_wider</span>(<span class="at">id_cols=</span>Year,<span class="at">names_from=</span>label,<span class="at">values_from=</span>avg) <span class="sc">%&gt;%</span></span>
+<span id="cb33-18" class="hljs-ln-code"><a href="#cb33-18"></a>      <span class="fu">mutate</span>(<span class="at">Annual_mean=</span><span class="fu">rowMeans</span>(.[,<span class="sc">-</span><span class="dv">1</span>], <span class="at">na.rm=</span><span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb33-19" class="hljs-ln-code"><a href="#cb33-19"></a>      <span class="fu">mutate</span>(<span class="at">Annual_diff=</span>Annual_mean<span class="sc">-</span><span class="fu">mean</span>(df<span class="sc">$</span>dmt, <span class="at">na.rm=</span><span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb33-20" class="hljs-ln-code"><a href="#cb33-20"></a>      <span class="fu">mutate</span>(<span class="at">Year=</span><span class="fu">as.character</span>(Year)) <span class="sc">%&gt;%</span></span>
+<span id="cb33-21" class="hljs-ln-code"><a href="#cb33-21"></a>      <span class="fu">bind_rows</span>(monthly.sum.W) <span class="sc">%&gt;%</span></span>
+<span id="cb33-22" class="hljs-ln-code"><a href="#cb33-22"></a>      <span class="fu">rename</span>(<span class="st">'Annual Mean'</span><span class="ot">=</span>Annual_mean, <span class="st">'Annual Diff'</span><span class="ot">=</span>Annual_diff)}, <span class="at">digits=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="topic-5-example---shiny-app-server-2" class="slide level2" data-menu-title="Example - server" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Topic 5: Example - shiny app server</h2>
+<div class="cell" style="font-size: 0.85em">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb34-1" class="hljs-ln-code"><a href="#cb34-1"></a><span class="co"># Server function (server)</span></span>
+<span id="cb34-2" class="hljs-ln-code"><a href="#cb34-2"></a></span>
+<span id="cb34-3" class="hljs-ln-code"><a href="#cb34-3"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb34-4" class="hljs-ln-code"><a href="#cb34-4"></a>  df.sub <span class="ot">&lt;-</span> <span class="fu">reactive</span>(monthly.means <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year <span class="sc">%in%</span> input<span class="sc">$</span>years))</span>
+<span id="cb34-5" class="hljs-ln-code"><a href="#cb34-5"></a>  </span>
+<span id="cb34-6" class="hljs-ln-code"><a href="#cb34-6"></a>  output<span class="sc">$</span>plot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>(<span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb34-7" class="hljs-ln-code"><a href="#cb34-7"></a>                              <span class="fu">geom_boxplot</span>(<span class="fu">aes</span>(month,avg,<span class="at">group=</span>month), monthly.means) <span class="sc">+</span></span>
+<span id="cb34-8" class="hljs-ln-code"><a href="#cb34-8"></a>                              <span class="fu">geom_point</span>(<span class="fu">aes</span>(month,avg), monthly.sum,<span class="at">size=</span><span class="dv">4</span>,<span class="at">fill=</span><span class="st">'darkgray'</span>,<span class="at">shape=</span><span class="dv">22</span>) <span class="sc">+</span></span>
+<span id="cb34-9" class="hljs-ln-code"><a href="#cb34-9"></a>                              <span class="fu">geom_point</span>(<span class="fu">aes</span>(month,avg,<span class="at">color=</span><span class="fu">factor</span>(year)),<span class="fu">df.sub</span>(),<span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb34-10" class="hljs-ln-code"><a href="#cb34-10"></a>                              <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">12</span>,<span class="dv">1</span>),<span class="at">labels=</span>labels,<span class="at">expand=</span><span class="fu">c</span>(<span class="fl">0.02</span>,<span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb34-11" class="hljs-ln-code"><a href="#cb34-11"></a>                              <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Month"</span>,<span class="at">y=</span><span class="st">"Temperature (°F)"</span>,<span class="at">color=</span><span class="st">"Year"</span>) <span class="sc">+</span> <span class="fu">theme_dark</span>())</span>
+<span id="cb34-12" class="hljs-ln-code"><a href="#cb34-12"></a>  </span>
+<span id="cb34-13" class="hljs-ln-code"><a href="#cb34-13"></a>  output<span class="sc">$</span>data <span class="ot">&lt;-</span> <span class="fu">renderTable</span>({</span>
+<span id="cb34-14" class="hljs-ln-code"><a href="#cb34-14"></a>    <span class="cf">if</span>(<span class="fu">is.null</span>(input<span class="sc">$</span>years)) monthly.sum.W <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="st">'Annual Mean'</span><span class="ot">=</span>Annual_mean, <span class="st">'Annual Diff'</span><span class="ot">=</span>Annual_diff)</span>
+<span id="cb34-15" class="hljs-ln-code"><a href="#cb34-15"></a>    <span class="cf">else</span> <span class="fu">df.sub</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb34-16" class="hljs-ln-code"><a href="#cb34-16"></a>      <span class="fu">mutate</span>(<span class="at">month=</span><span class="fu">as.integer</span>(month),<span class="at">label=</span>month.abb[month],<span class="at">Year=</span><span class="fu">as.integer</span>(year)) <span class="sc">%&gt;%</span></span>
+<span id="cb34-17" class="hljs-ln-code"><a href="#cb34-17"></a>      <span class="fu">pivot_wider</span>(<span class="at">id_cols=</span>Year,<span class="at">names_from=</span>label,<span class="at">values_from=</span>avg) <span class="sc">%&gt;%</span></span>
+<span id="cb34-18" class="hljs-ln-code"><a href="#cb34-18"></a>      <span class="fu">mutate</span>(<span class="at">Annual_mean=</span><span class="fu">rowMeans</span>(.[,<span class="sc">-</span><span class="dv">1</span>], <span class="at">na.rm=</span><span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb34-19" class="hljs-ln-code"><a href="#cb34-19"></a>      <span class="fu">mutate</span>(<span class="at">Annual_diff=</span>Annual_mean<span class="sc">-</span><span class="fu">mean</span>(df<span class="sc">$</span>dmt, <span class="at">na.rm=</span><span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb34-20" class="hljs-ln-code"><a href="#cb34-20"></a>      <span class="fu">mutate</span>(<span class="at">Year=</span><span class="fu">as.character</span>(Year)) <span class="sc">%&gt;%</span></span>
+<span id="cb34-21" class="hljs-ln-code"><a href="#cb34-21"></a>      <span class="fu">bind_rows</span>(monthly.sum.W) <span class="sc">%&gt;%</span></span>
+<span id="cb34-22" class="hljs-ln-code"><a href="#cb34-22"></a>      <span class="fu">rename</span>(<span class="st">'Annual Mean'</span><span class="ot">=</span>Annual_mean, <span class="st">'Annual Diff'</span><span class="ot">=</span>Annual_diff)}, <span class="at">digits=</span><span class="dv">1</span>)</span>
+<span id="cb34-23" class="hljs-ln-code"><a href="#cb34-23"></a>  </span>
+<span id="cb34-24" class="hljs-ln-code"><a href="#cb34-24"></a>  output<span class="sc">$</span>map <span class="ot">&lt;-</span> <span class="fu">renderLeaflet</span>(</span>
+<span id="cb34-25" class="hljs-ln-code"><a href="#cb34-25"></a>    <span class="fu">leaflet</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb34-26" class="hljs-ln-code"><a href="#cb34-26"></a>      <span class="fu">setView</span>(<span class="at">lat=</span>map<span class="sc">$</span>lat, <span class="at">lng=</span>map<span class="sc">$</span>lng, <span class="at">zoom=</span>map<span class="sc">$</span>zoom) <span class="sc">%&gt;%</span></span>
+<span id="cb34-27" class="hljs-ln-code"><a href="#cb34-27"></a>      <span class="fu">addTiles</span>(<span class="st">"https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb34-28" class="hljs-ln-code"><a href="#cb34-28"></a>      <span class="fu">addCircleMarkers</span>(<span class="at">lng=</span>map<span class="sc">$</span>lng, <span class="at">lat=</span>map<span class="sc">$</span>lat,</span>
+<span id="cb34-29" class="hljs-ln-code"><a href="#cb34-29"></a>        <span class="at">popup=</span><span class="st">'Lehigh Valley International Airport&lt;br&gt;NOAA Weather Station'</span>, <span class="at">stroke=</span><span class="cn">FALSE</span>, <span class="at">fillOpacity=</span><span class="fl">0.5</span>))}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="topic-5-example---run-shiny-app" class="slide level2" data-menu-title="Example - shiny app" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Topic 5: Example - run Shiny App</h2>
+<div class="cell" style="font-size: 0.85em">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb35-1" class="hljs-ln-code"><a href="#cb35-1"></a><span class="co"># Run the app</span></span>
+<span id="cb35-2" class="hljs-ln-code"><a href="#cb35-2"></a></span>
+<span id="cb35-3" class="hljs-ln-code"><a href="#cb35-3"></a><span class="fu">shinyApp</span>(ui, server)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>
+</p><p><a href="https://jeremymack.shinyapps.io/purpleair/"> <img src="./images/climate_shiny.png" alt="Picture of learning R graph" height="100%" width="100%"> </a></p>
+<p></p>
 <div class="footer footer-default">
 
 </div>
